@@ -20,6 +20,5 @@ body {
 .header {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: steelblue;
-    -webkit-text-stroke: 1px black;
-
+  -webkit-text-stroke: 1px black;
 }
