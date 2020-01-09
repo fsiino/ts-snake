@@ -11,12 +11,12 @@ export class Snake {
   private x: number;
   private y: number;
 
-  private snakePieceWidth: number;
-  private snakePieceHeight: number;
+  private cellWidth: number;
+  private cellHeight: number;
 
   private dir: string;
   
-  public head: number[]; // an array of numbers
+  public head: number[]; // an array of numbers / single coordinate
   public body: SnakeLoc[]; // 2d array of coordinates, e.g. [ [1,2], [1,3] ]
 
   constructor(canvas: HTMLCanvasElement) {
@@ -25,68 +25,69 @@ export class Snake {
     let canvasWidth = canvas.width;
     let canvasHeight = canvas.height;
 
-    this.snakePieceWidth = canvasWidth / 20;
-    this.snakePieceHeight = canvasHeight / 20;
+    this.cellWidth = canvasWidth / 20;
+    this.cellHeight = canvasHeight / 20;
 
-    // document.addEventListener("keydown", e => {
-    //   switch(e.key) {
-    //     case "Down" || "ArrowDown":
-    //       this.dir = "Down";
-    //       console.log('down')
-    //       break;
-    //     case "Up" || "ArrowUp":
-    //       this.dir = "Up";
-    //       break;
-    //     case "Left" || "ArrowLeft":
-    //       this.dir = "Left";
-    //       break;
-    //     case "Right" || "ArrowRight":
-    //       this.dir = "Right";
-    //       break;
-    //     default: 
-    //       return;
-    //   }
-    // })
+    
+    this.body = [
+      [1,1],
+      [2,1],
+      [3,1]
+      // start with length of 2 body (one being head)
+    ]
+
+    this.head = this.body[0]; // replace one cell of body with head.
   }
 
-  draw() {
-    // for (let i = 0; i < this.body.length; i++) {
-      
-    // }
+  controlSnake() {
     document.addEventListener("keydown", e => {
       switch (e.key) {
-        case "ArrowDown":
-          this.dir = "Down";
+        case "ArrowDown" && "s":
+          this.dir = "S";
           console.log('down')
           break;
-        case "ArrowUp":
-          this.dir = "Up";
+        case "ArrowUp" && "w":
+          this.dir = "N";
           console.log('up')
           break;
-        case "ArrowLeft":
-          this.dir = "Left";
+        case "ArrowLeft" && "a":
+          this.dir = "W";
           console.log('left')
           break;
-        case "ArrowRight":
-          this.dir = "Right";
+        case "ArrowRight" && "d":
+          this.dir = "E";
           console.log('right')
           break;
         default:
           break;
       }
     })
-    this.ctx.fillStyle = 'rgb(89, 0, 255)'
-    this.ctx.strokeStyle = '#000'
-    this.ctx.fillRect(
-      50,
-      50,
-      this.snakePieceWidth,
-      this.snakePieceHeight
-    )
+  }
+
+  draw() {
+    this.controlSnake();
+    
+    for (let i = 0; i < this.body.length; i++) {
+      // this.body is a 2d array of coords.
+      this.ctx.fillStyle = 'rgb(89, 0, 255)'
+      this.ctx.strokeStyle = '#000'
+      this.ctx.fillRect(
+        this.body[i][0],
+        this.body[i][1],
+        this.cellWidth,
+        this.cellHeight
+      )
+    }
   }
 
   update() {
-    
+    switch (this.dir) {
+      case "S":
+        this.body.pop();
+        console.log('heading south')
+      default: 
+        break;
+    }
   }
 
 }
