@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "open index.html && webpack --watch"
+    "start": "webpack --watch"
   },
   "keywords": [],
   "author": "",

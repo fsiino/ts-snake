@@ -1,4 +1,5 @@
 import { Snake } from "./snake";
+import { Food } from "./food";
 
 export class Game {
   public canvas: HTMLCanvasElement;
@@ -19,8 +20,9 @@ export class Game {
     this.requestedFrameId = requestAnimationFrame(() => this.loop());
     // console.log("looping");
     // console.log(++this.loopCount);
-    this.snake.draw();
-    this.snake.update();
+    this.snake.spawn();
+    this.snake.animate();
+    this.snake.slither();
   }
 
   startLoop() {

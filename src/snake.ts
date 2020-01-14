@@ -1,93 +1,51 @@
-const tune = {
-  speed: 6,
-  dX: 15,
-  dY: 15,
-}
-
-type SnakeLoc = [number, number];
-
 export class Snake {
-  private ctx : CanvasRenderingContext2D;
-  private x: number;
-  private y: number;
 
-  private cellWidth: number;
-  private cellHeight: number;
+  public ctx: CanvasRenderingContext2D;
 
-  private dir: string;
-  
-  public head: number[]; // an array of numbers / single coordinate
-  public body: SnakeLoc[]; // 2d array of coordinates, e.g. [ [1,2], [1,3] ]
+  public head: Array<number>; // array of number(s)
+  public body: Array<[number, number]>; // array of arrays e.g. [ [x,y], [x,y], .. ]
+
+  public startPos: Array<[number, number]>
+
+  public score: number = 0;
 
   constructor(canvas: HTMLCanvasElement) {
-    this.ctx = canvas.getContext("2d");
-
-    let canvasWidth = canvas.width;
-    let canvasHeight = canvas.height;
-
-    this.cellWidth = canvasWidth / 20;
-    this.cellHeight = canvasHeight / 20;
-
-    
-    this.body = [
-      [1,1],
-      [2,1],
-      [3,1]
-      // start with length of 2 body (one being head)
+    this.ctx = canvas.getContext('2d');
+    this.startPos = [
+      [50,3],
+      [51,3],
+      [52,3]
     ]
-
-    this.head = this.body[0]; // replace one cell of body with head.
+    this.body = [
+      this.startPos[0],
+      this.startPos[1],
+      this.startPos[2],
+    ]
+    this.head = this.body[0];
   }
 
-  controlSnake() {
-    document.addEventListener("keydown", e => {
-      switch (e.key) {
-        case "ArrowDown" && "s":
-          this.dir = "S";
-          console.log('down')
-          break;
-        case "ArrowUp" && "w":
-          this.dir = "N";
-          console.log('up')
-          break;
-        case "ArrowLeft" && "a":
-          this.dir = "W";
-          console.log('left')
-          break;
-        case "ArrowRight" && "d":
-          this.dir = "E";
-          console.log('right')
-          break;
-        default:
-          break;
-      }
-    })
-  }
-
-  draw() {
-    this.controlSnake();
-    
+  spawn() {
     for (let i = 0; i < this.body.length; i++) {
-      // this.body is a 2d array of coords.
-      this.ctx.fillStyle = 'rgb(89, 0, 255)'
-      this.ctx.strokeStyle = '#000'
+      let headIdx = 0;
+      if (i === headIdx) {
+        this.ctx.fillStyle = 'black';
+      } else {
+        this.ctx.fillStyle = 'pink';
+      }
       this.ctx.fillRect(
-        this.body[i][0],
-        this.body[i][1],
-        this.cellWidth,
-        this.cellHeight
-      )
+        this.startPos[i][0] * 5,
+        this.startPos[i][1] * 15,
+        20, 
+        5
+      );
     }
   }
 
-  update() {
-    switch (this.dir) {
-      case "S":
-        this.body.pop();
-        console.log('heading south')
-      default: 
-        break;
-    }
+  animate() {
+    
   }
 
+  slither() {
+    
+  }
 }
