@@ -14,7 +14,9 @@ export class Food {
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
 
+    
     this.foodQueue = [];
+    this.getFoodLoc();
   }
 
   getFoodLoc() {
@@ -24,6 +26,14 @@ export class Food {
   }
 
   spawn() {
-
+    for(let i = 0; i < this.foodQueue.length; i++) {
+      this.ctx.fillStyle = 'red';
+      this.ctx.fillRect(
+        this.foodQueue[i][0],
+        this.foodQueue[i][1],
+        8,
+        8
+      )
+    }
   }
 }

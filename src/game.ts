@@ -7,6 +7,7 @@ export class Game {
   private requestedFrameId: number = -1;
 
   private snake: Snake;
+  private food: Food;
 
   private loopCount = 0;
 
@@ -14,6 +15,7 @@ export class Game {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.snake = new Snake(canvas);
+    this.food = new Food(canvas);
   }
 
   private loop() {
@@ -23,6 +25,8 @@ export class Game {
     this.snake.spawn();
     this.snake.animate();
     this.snake.slither();
+    
+    this.food.spawn();
   }
 
   startLoop() {

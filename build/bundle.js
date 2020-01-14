@@ -98,6 +98,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src
 
 /***/ }),
 
+/***/ "./src/food.ts":
+/*!*********************!*\
+  !*** ./src/food.ts ***!
+  \*********************/
+/*! exports provided: Food */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Food\", function() { return Food; });\nvar Food = /** @class */ (function () {\n    function Food(canvas) {\n        this.ctx = canvas.getContext('2d');\n        this.canvasWidth = canvas.width;\n        this.canvasHeight = canvas.height;\n        this.foodQueue = [];\n        this.getFoodLoc();\n    }\n    Food.prototype.getFoodLoc = function () {\n        var randomCoordX = Math.floor(Math.random() * (this.canvasWidth - 1) + 1);\n        var randomCoordY = Math.floor(Math.random() * (this.canvasHeight - 1) + 1);\n        this.foodQueue.push([randomCoordX, randomCoordY]);\n    };\n    Food.prototype.spawn = function () {\n        for (var i = 0; i < this.foodQueue.length; i++) {\n            this.ctx.fillStyle = 'red';\n            this.ctx.fillRect(this.foodQueue[i][0], this.foodQueue[i][1], 8, 8);\n        }\n    };\n    return Food;\n}());\n\n\n\n//# sourceURL=webpack:///./src/food.ts?");
+
+/***/ }),
+
 /***/ "./src/game.ts":
 /*!*********************!*\
   !*** ./src/game.ts ***!
@@ -106,7 +118,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Game\", function() { return Game; });\n/* harmony import */ var _snake__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./snake */ \"./src/snake.ts\");\n\nvar Game = /** @class */ (function () {\n    function Game(canvas) {\n        this.requestedFrameId = -1;\n        this.loopCount = 0;\n        this.canvas = canvas;\n        this.ctx = canvas.getContext(\"2d\");\n        this.snake = new _snake__WEBPACK_IMPORTED_MODULE_0__[\"Snake\"](canvas);\n    }\n    Game.prototype.loop = function () {\n        var _this = this;\n        this.requestedFrameId = requestAnimationFrame(function () { return _this.loop(); });\n        // console.log(\"looping\");\n        // console.log(++this.loopCount);\n        this.snake.spawn();\n        this.snake.animate();\n        this.snake.slither();\n    };\n    Game.prototype.startLoop = function () {\n        var _this = this;\n        this.requestedFrameId = requestAnimationFrame(function () { return _this.loop(); });\n    };\n    Game.prototype.endLoop = function () {\n        cancelAnimationFrame(this.requestedFrameId);\n    };\n    return Game;\n}());\n\n\n\n//# sourceURL=webpack:///./src/game.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Game\", function() { return Game; });\n/* harmony import */ var _snake__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./snake */ \"./src/snake.ts\");\n/* harmony import */ var _food__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./food */ \"./src/food.ts\");\n\n\nvar Game = /** @class */ (function () {\n    function Game(canvas) {\n        this.requestedFrameId = -1;\n        this.loopCount = 0;\n        this.canvas = canvas;\n        this.ctx = canvas.getContext(\"2d\");\n        this.snake = new _snake__WEBPACK_IMPORTED_MODULE_0__[\"Snake\"](canvas);\n        this.food = new _food__WEBPACK_IMPORTED_MODULE_1__[\"Food\"](canvas);\n    }\n    Game.prototype.loop = function () {\n        var _this = this;\n        this.requestedFrameId = requestAnimationFrame(function () { return _this.loop(); });\n        // console.log(\"looping\");\n        // console.log(++this.loopCount);\n        this.snake.spawn();\n        this.snake.animate();\n        this.snake.slither();\n        this.food.spawn();\n    };\n    Game.prototype.startLoop = function () {\n        var _this = this;\n        this.requestedFrameId = requestAnimationFrame(function () { return _this.loop(); });\n    };\n    Game.prototype.endLoop = function () {\n        cancelAnimationFrame(this.requestedFrameId);\n    };\n    return Game;\n}());\n\n\n\n//# sourceURL=webpack:///./src/game.ts?");
 
 /***/ }),
 
