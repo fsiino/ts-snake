@@ -18,6 +18,7 @@ export class Game {
     this.ctx = canvas.getContext("2d");
     this.snake = new Snake(canvas);
 
+    document.addEventListener("keydown", this.snake.turn)
   }
 
   public clearCanvas() {
@@ -45,7 +46,7 @@ export class Game {
     
     setTimeout(() => {
       this.clearCanvas(); 
-      this.snake.advanceSnake(); 
+      this.snake.moveSnake(); 
       this.snake.drawSnake();
       this.loop();
     }, GAMESPEED);
@@ -59,6 +60,5 @@ export class Game {
   public endLoop() {
     cancelAnimationFrame(this.requestedFrameId);
   }
-
 
 }

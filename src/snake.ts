@@ -27,15 +27,12 @@ export class Snake {
     ]
     this.dx = 10;
     this.dy = 0;
-
-    document.addEventListener("keydown", this.turn)
       
   }
 
   public drawSnakePart(snakePart: any) {
     this.ctx.fillStyle = SNAKECOLOR;  
     this.ctx.strokeStyle = SNAKESTROKECOLOR; 
-
     this.ctx.fillRect(
       snakePart.x, 
       snakePart.y, 
@@ -54,7 +51,7 @@ export class Snake {
     this.snake.forEach(snakePart => this.drawSnakePart(snakePart)); 
   }
 
-  public advanceSnake() {
+  public moveSnake() {
     const head = { 
       x: this.snake[0].x + this.dx, 
       y: this.snake[0].y + this.dy,
@@ -69,35 +66,30 @@ export class Snake {
     const UP = 87;
     const DOWN = 83;
 
-    const alreadyUp = this.dy === -10;
-    const alreadyDown = this.dy === 10;
-    const alreadyRight = this.dx === 10;
-    const alreadyLeft = this.dx === -10;
-
     switch(e.keyCode) {
       case LEFT:
-        if (!alreadyRight) {
+        if (this.dx !== 10) {
           this.dx = -10;
           this.dy = 0;
           console.log('l')
           break;
       }
       case RIGHT:
-        if (!alreadyLeft) {
+        if (this.dx !== -10) {
           this.dx = 10;
           this.dy = 0;
           console.log('r')
           break;
       }
       case UP:
-        if (!alreadyDown) {
+        if (this.dy !== -10) {
           this.dx = 0;
           this.dy = 10;
           console.log('u')
           break;
       }
       case DOWN:
-        if (!alreadyUp) {
+        if (this.dy !== 10) {
           this.dx = 0;
           this.dy = -10;
           console.log('d')
@@ -107,4 +99,5 @@ export class Snake {
         return;
     };
   }
+
 }
