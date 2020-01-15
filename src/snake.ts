@@ -81,29 +81,30 @@ export class Snake {
           this.dy = 0;
           console.log('l')
           break;
-    }
+      }
       case RIGHT:
         if (!alreadyLeft) {
           this.dx = 10;
           this.dy = 0;
           console.log('r')
           break;
-    }
+      }
       case UP:
         if (!alreadyDown) {
           this.dx = 0;
           this.dy = 10;
           console.log('u')
           break;
-    }
+      }
       case DOWN:
         if (!alreadyUp) {
           this.dx = 0;
           this.dy = -10;
           console.log('d')
           break;
-    }
+      }
       default:
-  return;
-  };
+        return;
+    };
+  }
 }
