@@ -25,7 +25,7 @@ export class Snake {
       {x: 120, y: 110},  
       {x: 110, y: 110},
     ]
-    this.dx = 0;
+    this.dx = 10;
     this.dy = 0;
 
     document.addEventListener("keydown", this.turn)

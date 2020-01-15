@@ -1,8 +1,8 @@
 import { Snake } from "./snake";
 
-const CANVASBGCOLOR = 'transparent';
+const CANVASBGCOLOR = 'gray';
 const CANVASBORDERCOLOR = 'black';
-const GAMESPEED = 500;
+const GAMESPEED = 100;
 
 export class Game {
   public canvas: HTMLCanvasElement;
@@ -19,7 +19,6 @@ export class Game {
     this.snake = new Snake(canvas);
 
   }
-  
 
   public clearCanvas() {
     this.ctx.fillStyle = CANVASBGCOLOR;
@@ -39,8 +38,7 @@ export class Game {
   }
 
   private loop() {
-
-    this.requestedFrameId = requestAnimationFrame(() => this.loop());
+    // this.requestedFrameId = requestAnimationFrame(() => this.loop());
     console.log("looping");
     // console.log(++this.loopCount);
     this.snake.drawSnake();
@@ -49,6 +47,7 @@ export class Game {
       this.clearCanvas(); 
       this.snake.advanceSnake(); 
       this.snake.drawSnake();
+      this.loop();
     }, GAMESPEED);
 
   }
