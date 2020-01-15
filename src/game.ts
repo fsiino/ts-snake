@@ -1,13 +1,19 @@
 import { Snake } from "./snake";
 import { Food } from "./food";
 
+const CANVASBGCOLOR = 'transparent';
+const CANVASBORDERCOLOR = 'black';
+const GAMESPEED = 500;
+
 export class Game {
   public canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private requestedFrameId: number = -1;
 
-  private snake: Snake;
-  private food: Food;
+  public snake: Snake;
+  public food: Food;
+
+  public running: boolean;
 
   private loopCount = 0;
 
@@ -16,24 +22,41 @@ export class Game {
     this.ctx = canvas.getContext("2d");
     this.snake = new Snake(canvas);
     this.food = new Food(canvas);
+    this.running = true;
+
+    this.clearCanvas = this.clearCanvas.bind(this);
+  }
+
+  public clearCanvas() {
+    this.ctx.fillStyle = CANVASBGCOLOR;
+    this.ctx.strokeStyle = CANVASBORDERCOLOR;
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   private loop() {
+    this.clearCanvas = this.clearCanvas.bind(this);
+
     this.requestedFrameId = requestAnimationFrame(() => this.loop());
-    // console.log("looping");
-    // console.log(++this.loopCount);
-    this.snake.spawn();
-    this.snake.animate();
-    this.snake.slither();
+    console.log("looping");
+    console.log(++this.loopCount);
+    this.snake.drawSnake();
     
-    this.food.spawn();
+    setTimeout(() => {
+      this.clearCanvas(); 
+      this.snake.advanceSnake(); 
+      this.snake.drawSnake();
+    }, GAMESPEED);
+
   }
 
-  startLoop() {
+  public startLoop() {
     this.requestedFrameId = requestAnimationFrame(() => this.loop());
   }
 
-  endLoop() {
+  public endLoop() {
     cancelAnimationFrame(this.requestedFrameId);
   }
+
+
 }

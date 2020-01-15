@@ -19,20 +19,20 @@ export class Food {
     this.getFoodLoc();
   }
 
-  getFoodLoc() {
-    let randomCoordX = Math.floor(Math.random() * (this.canvasWidth - 1) + 1)
-    let randomCoordY = Math.floor(Math.random() * (this.canvasHeight - 1) + 1)
+  public getFoodLoc() {
+    let randomCoordX = Math.floor(Math.random() * (this.canvasWidth - 10) + 1)
+    let randomCoordY = Math.floor(Math.random() * (this.canvasHeight - 10) + 1)
     this.foodQueue.push([randomCoordX, randomCoordY]);
   }
 
-  spawn() {
+  public spawn() {
     for(let i = 0; i < this.foodQueue.length; i++) {
       this.ctx.fillStyle = 'red';
       this.ctx.fillRect(
         this.foodQueue[i][0],
         this.foodQueue[i][1],
         8,
-        8
+        5
       )
     }
   }
