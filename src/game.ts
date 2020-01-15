@@ -1,5 +1,4 @@
 import { Snake } from "./snake";
-import { Food } from "./food";
 
 const CANVASBGCOLOR = 'transparent';
 const CANVASBORDERCOLOR = 'black';
@@ -11,9 +10,6 @@ export class Game {
   private requestedFrameId: number = -1;
 
   public snake: Snake;
-  public food: Food;
-
-  public running: boolean;
 
   private loopCount = 0;
 
@@ -21,25 +17,32 @@ export class Game {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.snake = new Snake(canvas);
-    this.food = new Food(canvas);
-    this.running = true;
 
-    this.clearCanvas = this.clearCanvas.bind(this);
   }
+  
 
   public clearCanvas() {
     this.ctx.fillStyle = CANVASBGCOLOR;
     this.ctx.strokeStyle = CANVASBORDERCOLOR;
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillRect(
+      0, 
+      0, 
+      this.canvas.width, 
+      this.canvas.height
+    );
+    this.ctx.strokeRect(
+      0, 
+      0, 
+      this.canvas.width,
+      this.canvas.height
+    );
   }
 
   private loop() {
-    this.clearCanvas = this.clearCanvas.bind(this);
 
     this.requestedFrameId = requestAnimationFrame(() => this.loop());
     console.log("looping");
-    console.log(++this.loopCount);
+    // console.log(++this.loopCount);
     this.snake.drawSnake();
     
     setTimeout(() => {

@@ -27,6 +27,9 @@ export class Snake {
     ]
     this.dx = 0;
     this.dy = 0;
+
+    document.addEventListener("keydown", this.turn)
+      
   }
 
   public drawSnakePart(snakePart: any) {
@@ -60,8 +63,47 @@ export class Snake {
     this.snake.pop();
   }
 
-  public turn(event: any) {
+  public turn(e: any) {
     const LEFT = 65;
-    const RIGHT = 
-  }
+    const RIGHT = 68;
+    const UP = 87;
+    const DOWN = 83;
+
+    const alreadyUp = this.dy === -10;
+    const alreadyDown = this.dy === 10;
+    const alreadyRight = this.dx === 10;
+    const alreadyLeft = this.dx === -10;
+
+    switch(e.keyCode) {
+      case LEFT:
+        if (!alreadyRight) {
+          this.dx = -10;
+          this.dy = 0;
+          console.log('l')
+          break;
+    }
+      case RIGHT:
+        if (!alreadyLeft) {
+          this.dx = 10;
+          this.dy = 0;
+          console.log('r')
+          break;
+    }
+      case UP:
+        if (!alreadyDown) {
+          this.dx = 0;
+          this.dy = 10;
+          console.log('u')
+          break;
+    }
+      case DOWN:
+        if (!alreadyUp) {
+          this.dx = 0;
+          this.dy = -10;
+          console.log('d')
+          break;
+    }
+      default:
+  return;
+  };
 }
