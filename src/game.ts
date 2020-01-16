@@ -44,14 +44,10 @@ export class Game {
     // this.requestedFrameId = requestAnimationFrame(() => this.loop());
     console.log("looping");
     // console.log(++this.loopCount);
-    this.food.createFood();
-    this.snake.drawSnake();
     
     setTimeout(() => {
       this.clearCanvas(); 
-
       this.food.drawFood();
-      
       this.snake.moveSnake(); 
       this.snake.drawSnake();
       this.loop();

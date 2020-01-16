@@ -4,19 +4,13 @@ const FOODSTROKECOLOR = 'black';
 export class Food {
   public ctx: CanvasRenderingContext2D;
 
-  // public foodLoc: Array<number>
-  public foodX: number;
-  public foodY: number;
+  public foodLoc: Array<number> = [50, 50]
 
   public canvasWidth: number;
   public canvasHeight: number;
 
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d');
-    // this.foodLoc = [];
-
-    this.foodX = 50;
-    this.foodY = 50;
     
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
@@ -28,19 +22,19 @@ export class Food {
     return randomCoord;
   }
 
-  public createFood(): void {
-    this.foodX = this.randomFoods(0, this.canvasWidth - 10);
-    this.foodY = this.randomFoods(0, this.canvasHeight - 10)
-    // this.foodLoc.push(foodX, foodY)
+  public createFood(): Array<number> {
+    let foodX = this.randomFoods(0, this.canvasWidth - 10);
+    let foodY = this.randomFoods(0, this.canvasHeight - 10)
+    return [foodX, foodY]
   }
 
   public drawFood() {
-    
+    this.createFood();
     this.ctx.fillStyle = FOODCOLOR;
     this.ctx.strokeStyle = FOODSTROKECOLOR;
     this.ctx.fillRect(
-      this.foodX,
-      this.foodY,
+      this.foodLoc[0],
+      this.foodLoc[1],
       10,
       10
     )
