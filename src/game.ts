@@ -21,6 +21,7 @@ export class Game {
     this.ctx = canvas.getContext('2d');
     this.snake = new Snake(canvas);
     this.food = new Food(canvas);
+    this.food.createFood()
   }
 
   public clearCanvas(): void  {

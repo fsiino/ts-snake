@@ -3,18 +3,14 @@ const FOODSTROKECOLOR = 'black';
 
 export class Food {
   public ctx: CanvasRenderingContext2D;
-
   public foodLoc: Array<number>;
-
   public canvasWidth: number;
   public canvasHeight: number;
 
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d');
-    
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
-
     this.foodLoc = [];
   }
 

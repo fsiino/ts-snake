@@ -11,13 +11,13 @@ const SNAKESTROKECOLOR = 'darkgreen';
 export class Snake {
   
   public ctx: CanvasRenderingContext2D;
-
   public snake: Array<snakePart>;
   public food: Food;
   public score: number = 0;
-
   public dx: number;
   public dy: number;
+  public canvasWidth: number;
+  public canvasHeight: number;
 
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d');
@@ -31,17 +31,18 @@ export class Snake {
     this.food = new Food(canvas);
     this.dx = 0;
     this.dy = 10;
+    this.canvasWidth = canvas.width;
+    this.canvasHeight = canvas.height;
       
-    // document.addEventListener("keydown", this.turn.bind(this))
-    document.addEventListener('keydown', e => {
-      this.turn(e)
-    })
+    document.addEventListener('keydown', e => this.turn(e))
 
-    this.snake.forEach(part => {
-      if (part.x !== this.food.foodLoc[0] && part.y !== this.food.foodLoc[1]) {
-        this.food.createFood();
-      }
-    })
+    // this.snake.forEach(part => {
+    //   if (part.x !== this.food.foodLoc[0] && part.y !== this.food.foodLoc[1]) {
+    //     this.food.createFood();
+    //   }
+    // })
+
+    // removed for now for testing
 
   }
 
@@ -74,7 +75,17 @@ export class Snake {
 
     this.snake.unshift(head);
     
-    if (this.snake[0].x === this.food.foodLoc[0] && this.snake[0].y === this.food.foodLoc[1]) {
+    const ateFood = (this.snake[0].x === this.food.foodLoc[0] && this.snake[0].y === this.food.foodLoc[1]);
+
+    // debugger
+    // let i = 0;
+    // while (i < 1) {
+    //   this.food.createFood(); 
+    //   i++;
+    // }
+
+// debugger
+    if (ateFood) {
       this.food.createFood();
       // TODO: increase score here
       console.log('ate some food')
@@ -83,7 +94,7 @@ export class Snake {
     }
   }
   
-  public turn(e: any) {
+  public turn(e: any): void {
     const LEFT = 65;
     const RIGHT = 68;
     const UP = 87;
@@ -122,7 +133,10 @@ export class Snake {
       default:
         return;
     };
-
   }
+
+  // public ateFood() {
+
+  // }
 
 }
