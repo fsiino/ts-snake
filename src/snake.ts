@@ -83,6 +83,7 @@ export class Snake {
       // TODO: increase score here
     } else {
       this.body.pop();
+      this.food.drawFood();
     }
   }
   

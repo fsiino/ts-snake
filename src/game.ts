@@ -13,7 +13,7 @@ export class Game {
 
   public snake: Snake;
   public food: Food;
-  public foodLoc: Array<number>
+  public foodLoc: Array<number>;
 
   // private loopCount = 0;
 
@@ -42,11 +42,12 @@ export class Game {
       this.canvas.width,
       this.canvas.height
     );
+    this.food.drawFood();
   }
 
-  // public ateFood(): void {
+  // public ateFood(canvas: HTMLCanvasElement): void {
   //   if (this.snake.body[0].x === this.food.foodLoc[0] && this.snake.body[0].y === this.food.foodLoc[1]) {
-
+  //     new Food(canvas);
   //   }
   // }
 
@@ -58,7 +59,13 @@ export class Game {
     setTimeout(() => {
       this.clearCanvas(); 
       console.log('drawing food from Game...')
-      this.food.drawFood(); // TODO: still drawing old foodLoc after eating, not newly created foodLoc
+      // this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]); // TODO: still drawing old foodLoc after eating, not newly created foodLoc
+
+      // Update this.food.foodLoc here??
+      // this.food.foodLoc
+      // debugger
+
+      // this.food.drawFood();
       this.snake.moveSnake(this.food.foodLoc); 
       this.snake.drawSnake();
       this.loop();

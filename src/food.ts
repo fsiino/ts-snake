@@ -26,7 +26,7 @@ export class Food {
     console.log('created Food: ',[foodX, foodY])
     console.log('foodLoc is ',this.foodLoc)
     console.log('drawing food from Food..')
-    this.drawFood();
+    // this.drawFood();
   }
 
   public drawFood() {
@@ -35,10 +35,18 @@ export class Food {
     this.ctx.fillRect(
       this.foodLoc[0],
       this.foodLoc[1],
+      // newFoodX,
+      // newFoodY,
       10,
       10
     )
     console.log('drew Food: ',[this.foodLoc[0], this.foodLoc[1]])
+  }
+
+  public updateFood(snake: any) {
+    // determine collision with snake here and use it for loop
+    // if collision, create and draw new food
+    // else draw
   }
 
 }
