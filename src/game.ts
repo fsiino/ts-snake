@@ -1,5 +1,7 @@
-import { Snake } from "./snake";
+import { Snake } from './snake';
+import { Food } from './food';
 
+// TODO: Move consts to its own file ?
 const CANVASBGCOLOR = 'gray';
 const CANVASBORDERCOLOR = 'black';
 const GAMESPEED = 100;
@@ -10,18 +12,18 @@ export class Game {
   private requestedFrameId: number = -1;
 
   public snake: Snake;
+  public food: Food;
 
-  private loopCount = 0;
+  // private loopCount = 0;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.snake = new Snake(canvas);
-
-    
+    this.food = new Food(canvas);
   }
 
-  public clearCanvas() {
+  public clearCanvas(): void  {
     this.ctx.fillStyle = CANVASBGCOLOR;
     this.ctx.strokeStyle = CANVASBORDERCOLOR;
     this.ctx.fillRect(
@@ -38,26 +40,29 @@ export class Game {
     );
   }
 
-  private loop() {
+  private loop(): void  {
     // this.requestedFrameId = requestAnimationFrame(() => this.loop());
     console.log("looping");
     // console.log(++this.loopCount);
+    this.food.createFood();
     this.snake.drawSnake();
     
     setTimeout(() => {
       this.clearCanvas(); 
+
+      this.food.drawFood();
+      
       this.snake.moveSnake(); 
       this.snake.drawSnake();
       this.loop();
     }, GAMESPEED);
-
   }
 
-  public startLoop() {
+  public startLoop(): void  {
     this.requestedFrameId = requestAnimationFrame(() => this.loop());
   }
 
-  public endLoop() {
+  public endLoop(): void  {
     cancelAnimationFrame(this.requestedFrameId);
   }
 

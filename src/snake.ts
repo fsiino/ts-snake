@@ -1,3 +1,5 @@
+import { Food } from './food';
+
 type snakePart = {
   x: number,
   y: number
@@ -35,11 +37,11 @@ export class Snake {
 
   }
 
-  public drawSnake() {
+  public drawSnake():void {
     this.snake.forEach(snakePart => this.drawSnakePart(snakePart));
   }
 
-  public drawSnakePart(snakePart: snakePart) {
+  public drawSnakePart(snakePart: snakePart): void {
     this.ctx.fillStyle = SNAKECOLOR;  
     this.ctx.strokeStyle = SNAKESTROKECOLOR; 
     this.ctx.fillRect(
@@ -56,7 +58,7 @@ export class Snake {
     );
   }
 
-  public moveSnake() {
+  public moveSnake(): void  {
     const head = { 
       x: this.snake[0].x + this.dx, 
       y: this.snake[0].y + this.dy,
@@ -64,7 +66,7 @@ export class Snake {
     this.snake.unshift(head);
     this.snake.pop();
   }
-
+  
   public turn(e: any) {
     const LEFT = 65;
     const RIGHT = 68;
