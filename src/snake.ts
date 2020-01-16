@@ -11,7 +11,7 @@ const SNAKESTROKECOLOR = 'darkgreen';
 export class Snake {
   
   public ctx: CanvasRenderingContext2D;
-  public snake: Array<snakePart>;
+  public body: Array<snakePart>;
   public food: Food;
   public score: number = 0;
   public dx: number;
@@ -21,7 +21,7 @@ export class Snake {
 
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d');
-    this.snake = [  
+    this.body = [  
       {x: 150, y: 60},  // head
       {x: 140, y: 60},  
       {x: 130, y: 60},  
@@ -42,12 +42,11 @@ export class Snake {
     //   }
     // })
 
-    // removed for now for testing
-
+    // caused repeated creation of 4-6 foods before setTimeout
   }
 
   public drawSnake(): void {
-    this.snake.forEach(snakePart => this.drawSnakePart(snakePart));
+    this.body.forEach(snakePart => this.drawSnakePart(snakePart));
   }
 
   public drawSnakePart(snakePart: snakePart): void {
@@ -67,30 +66,23 @@ export class Snake {
     );
   }
 
-  public moveSnake(): void  {
+  public moveSnake(foodLoc: Array<number>): void  {
     const head = { 
-      x: this.snake[0].x + this.dx, 
-      y: this.snake[0].y + this.dy,
+      x: this.body[0].x + this.dx, 
+      y: this.body[0].y + this.dy,
     };
 
-    this.snake.unshift(head);
+    this.body.unshift(head);
     
-    const ateFood = (this.snake[0].x === this.food.foodLoc[0] && this.snake[0].y === this.food.foodLoc[1]);
-
     // debugger
-    // let i = 0;
-    // while (i < 1) {
-    //   this.food.createFood(); 
-    //   i++;
-    // }
+    const ateFood = (this.body[0].x === foodLoc[0] && this.body[0].y === foodLoc[1]);
 
-// debugger
     if (ateFood) {
+      console.log('ate some food :',[foodLoc[0], foodLoc[1]])
       this.food.createFood();
       // TODO: increase score here
-      console.log('ate some food')
     } else {
-      this.snake.pop();
+      this.body.pop();
     }
   }
   
@@ -134,9 +126,5 @@ export class Snake {
         return;
     };
   }
-
-  // public ateFood() {
-
-  // }
-
+  
 }

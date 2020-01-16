@@ -14,15 +14,18 @@ export class Food {
     this.foodLoc = [];
   }
 
-  public randomFoods(min: number, max: number): number { 
+  public randomFood(min: number, max: number): number { 
     let randomCoord = Math.round((Math.random() * (max-min) + min) / 10) * 10;
     return randomCoord;
   }
 
   public createFood(): void {
-    let foodX = this.randomFoods(0, this.canvasWidth - 10);
-    let foodY = this.randomFoods(0, this.canvasHeight - 10)
+    let foodX = this.randomFood(0, this.canvasWidth - 10);
+    let foodY = this.randomFood(0, this.canvasHeight - 10)
     this.foodLoc = [foodX, foodY]
+    console.log('created Food: ',[foodX, foodY])
+    console.log('foodLoc is ',this.foodLoc)
+    console.log('drawing food from Food..')
     this.drawFood();
   }
 
@@ -35,6 +38,7 @@ export class Food {
       10,
       10
     )
+    console.log('drew Food: ',[this.foodLoc[0], this.foodLoc[1]])
   }
 
 }

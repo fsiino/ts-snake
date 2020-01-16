@@ -4,7 +4,7 @@ import { Food } from './food';
 // TODO: Move consts to its own file ?
 const CANVASBGCOLOR = 'gray';
 const CANVASBORDERCOLOR = 'black';
-const GAMESPEED = 200;
+const GAMESPEED = 100;
 
 export class Game {
   public canvas: HTMLCanvasElement;
@@ -13,15 +13,18 @@ export class Game {
 
   public snake: Snake;
   public food: Food;
+  public foodLoc: Array<number>
 
   // private loopCount = 0;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
-    this.snake = new Snake(canvas);
     this.food = new Food(canvas);
+    this.foodLoc = this.food.foodLoc;
+    this.snake = new Snake(canvas);
     this.food.createFood()
+    // debugger
   }
 
   public clearCanvas(): void  {
@@ -41,15 +44,22 @@ export class Game {
     );
   }
 
+  // public ateFood(): void {
+  //   if (this.snake.body[0].x === this.food.foodLoc[0] && this.snake.body[0].y === this.food.foodLoc[1]) {
+
+  //   }
+  // }
+
   private loop(): void  {
     // this.requestedFrameId = requestAnimationFrame(() => this.loop());
-    console.log("looping");
+    // console.log("looping");
     // console.log(++this.loopCount);
-    
+
     setTimeout(() => {
       this.clearCanvas(); 
-      this.food.drawFood();
-      this.snake.moveSnake(); 
+      console.log('drawing food from Game...')
+      this.food.drawFood(); // TODO: still drawing old foodLoc after eating, not newly created foodLoc
+      this.snake.moveSnake(this.food.foodLoc); 
       this.snake.drawSnake();
       this.loop();
     }, GAMESPEED);
