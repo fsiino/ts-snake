@@ -13,6 +13,7 @@ export class Snake {
   public ctx: CanvasRenderingContext2D;
 
   public snake: Array<snakePart>;
+  public food: Food;
   public score: number = 0;
 
   public dx: number;
@@ -27,6 +28,7 @@ export class Snake {
       {x: 120, y: 60},  
       {x: 110, y: 60},
     ]
+    this.food = new Food(canvas);
     this.dx = 0;
     this.dy = 10;
       
@@ -35,9 +37,15 @@ export class Snake {
       this.turn(e)
     })
 
+    this.snake.forEach(part => {
+      if (part.x !== this.food.foodLoc[0] && part.y !== this.food.foodLoc[1]) {
+        this.food.createFood();
+      }
+    })
+
   }
 
-  public drawSnake():void {
+  public drawSnake(): void {
     this.snake.forEach(snakePart => this.drawSnakePart(snakePart));
   }
 
@@ -63,8 +71,16 @@ export class Snake {
       x: this.snake[0].x + this.dx, 
       y: this.snake[0].y + this.dy,
     };
+
     this.snake.unshift(head);
-    this.snake.pop();
+    
+    if (this.snake[0].x === this.food.foodLoc[0] && this.snake[0].y === this.food.foodLoc[1]) {
+      this.food.createFood();
+      // TODO: increase score here
+      console.log('ate some food')
+    } else {
+      this.snake.pop();
+    }
   }
   
   public turn(e: any) {

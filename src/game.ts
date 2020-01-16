@@ -4,7 +4,7 @@ import { Food } from './food';
 // TODO: Move consts to its own file ?
 const CANVASBGCOLOR = 'gray';
 const CANVASBORDERCOLOR = 'black';
-const GAMESPEED = 100;
+const GAMESPEED = 200;
 
 export class Game {
   public canvas: HTMLCanvasElement;

@@ -6,9 +6,14 @@ body {
 
 canvas {
   border: 1px solid black;
-  width: 300px;
-  height: 300px;
+  width: 800px;
+  height: 600px;
   background-color: gray;
+}
+
+#score {
+  font-size: 50px;
+  color: white;
 }
 
 .game-wrapper {

@@ -4,7 +4,7 @@ const FOODSTROKECOLOR = 'black';
 export class Food {
   public ctx: CanvasRenderingContext2D;
 
-  public foodLoc: Array<number> = [50, 50]
+  public foodLoc: Array<number>;
 
   public canvasWidth: number;
   public canvasHeight: number;
@@ -14,22 +14,23 @@ export class Food {
     
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
+
+    this.foodLoc = [];
   }
 
-  //TODO: Make tunable with constant
   public randomFoods(min: number, max: number): number { 
-    let randomCoord = Math.round(Math.random() * (max-min) * 10);
+    let randomCoord = Math.round((Math.random() * (max-min) + min) / 10) * 10;
     return randomCoord;
   }
 
-  public createFood(): Array<number> {
+  public createFood(): void {
     let foodX = this.randomFoods(0, this.canvasWidth - 10);
     let foodY = this.randomFoods(0, this.canvasHeight - 10)
-    return [foodX, foodY]
+    this.foodLoc = [foodX, foodY]
+    this.drawFood();
   }
 
   public drawFood() {
-    this.createFood();
     this.ctx.fillStyle = FOODCOLOR;
     this.ctx.strokeStyle = FOODSTROKECOLOR;
     this.ctx.fillRect(
