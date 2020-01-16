@@ -2,6 +2,11 @@ body {
   background-image: url('./bg1.jpg');
   background-repeat: none;
   background-size: 100%;  
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a {
+  color: cyan;
 }
 
 canvas {
@@ -23,13 +28,17 @@ canvas {
 }
 
 .header {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: rgb(100, 228, 237);
   -webkit-text-stroke: 1px black;
   font-size: 48px;
   -webkit-animation: glow 1s ease-in-out infinite alternate;
   -moz-animation: glow 1s ease-in-out infinite alternate;
   animation: glow 1s ease-in-out infinite alternate;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
 }
 
 @-webkit-keyframes glow {
