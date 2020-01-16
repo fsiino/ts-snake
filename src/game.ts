@@ -15,10 +15,10 @@ export class Game {
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext("2d");
+    this.ctx = canvas.getContext('2d');
     this.snake = new Snake(canvas);
 
-    document.addEventListener("keydown", this.snake.turn)
+    
   }
 
   public clearCanvas() {

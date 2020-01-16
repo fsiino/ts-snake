@@ -19,18 +19,27 @@ export class Snake {
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d');
     this.snake = [  
-      {x: 150, y: 110},  // head
-      {x: 140, y: 110},  
-      {x: 130, y: 110},  
-      {x: 120, y: 110},  
-      {x: 110, y: 110},
+      {x: 150, y: 60},  // head
+      {x: 140, y: 60},  
+      {x: 130, y: 60},  
+      {x: 120, y: 60},  
+      {x: 110, y: 60},
     ]
-    this.dx = 10;
-    this.dy = 0;
+    this.dx = 0;
+    this.dy = 10;
       
+    // document.addEventListener("keydown", this.turn.bind(this))
+    document.addEventListener('keydown', (e) => {
+      this.turn(e)
+    })
+
   }
 
-  public drawSnakePart(snakePart: any) {
+  public drawSnake() {
+    this.snake.forEach(snakePart => this.drawSnakePart(snakePart));
+  }
+
+  public drawSnakePart(snakePart: snakePart) {
     this.ctx.fillStyle = SNAKECOLOR;  
     this.ctx.strokeStyle = SNAKESTROKECOLOR; 
     this.ctx.fillRect(
@@ -45,10 +54,6 @@ export class Snake {
       10,
       10
     );
-  }
-
-  public drawSnake() { 
-    this.snake.forEach(snakePart => this.drawSnakePart(snakePart)); 
   }
 
   public moveSnake() {
@@ -82,22 +87,23 @@ export class Snake {
           break;
       }
       case UP:
-        if (this.dy !== -10) {
+        if (this.dy !== 10) {
           this.dx = 0;
-          this.dy = 10;
+          this.dy = -10;
           console.log('u')
           break;
       }
       case DOWN:
-        if (this.dy !== 10) {
+        if (this.dy !== -10) {
           this.dx = 0;
-          this.dy = -10;
+          this.dy = 10;
           console.log('d')
           break;
       }
       default:
         return;
     };
+
   }
 
 }
