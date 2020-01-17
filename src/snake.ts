@@ -14,7 +14,6 @@ export class Snake {
   public ctx: CanvasRenderingContext2D;
   public body: Array<snakePart>;
   public food: Food;
-  // public score: number = 0;
   public dx: number;
   public dy: number;
   public canvasWidth: number;
@@ -26,8 +25,6 @@ export class Snake {
       {x: 150, y: 60},  // head
       {x: 140, y: 60},  
       {x: 130, y: 60},  
-      {x: 120, y: 60},  
-      {x: 110, y: 60},
     ]
     this.food = new Food(canvas);
     this.dx = 0;
@@ -36,12 +33,6 @@ export class Snake {
     this.canvasHeight = canvas.height;
       
     document.addEventListener('keydown', e => this.turn(e))
-
-    // this.body.forEach(part => {
-    //   if (part.x !== this.food.foodLoc[0] && part.y !== this.food.foodLoc[1]) {
-    //     this.food.createFood();
-    //   }
-    // })
 
     // caused repeated creation of 4-6 foods before setTimeout
     // now causes 2 to spawn at game start.
@@ -55,20 +46,14 @@ export class Snake {
     this.ctx.fillStyle = Settings.snake.SNAKECOLOR;  
     this.ctx.strokeStyle = Settings.snake.SNAKESTROKECOLOR; 
     this.ctx.fillRect(
-      snakePart.x, 
-      snakePart.y, 
-      10, 
-      10
+      snakePart.x, snakePart.y, 10, 10
     ); 
     this.ctx.strokeRect(
-      snakePart.x, 
-      snakePart.y, 
-      10,
-      10
+      snakePart.x, snakePart.y, 10, 10
     );
   }
 
-  public moveSnake(foodLoc: Array<number>): void  { // being called by Game
+  public moveSnake(foodLoc: Array<number>): void  { 
     const head = { 
       x: this.body[0].x + this.dx, 
       y: this.body[0].y + this.dy,

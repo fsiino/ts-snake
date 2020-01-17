@@ -12,6 +12,7 @@ export class Game {
   public canvasWidth: number;
   public canvasHeight: number;
   public currentScore: number;
+  public appleBite: any;
   // private loopCount = 0;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -19,13 +20,20 @@ export class Game {
     this.ctx = canvas.getContext('2d');
     this.canvasWidth = this.canvas.width;
     this.canvasHeight = this.canvas.height;
+    this.snake = new Snake(canvas);
     this.food = new Food(canvas);
     this.foodCoords = [];
-    this.snake = new Snake(canvas);
-    this.food.createFood()
+
+    this.snake.body.forEach((part: any) => {
+      if (part.x !== this.food.foodLoc[0] && part.y !== this.food.foodLoc[1]) {
+        this.food.createFood(this.snake);
+      }
+    })
+
     this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1])
     this.foodCoords.push(...[this.randomFood(0, this.canvasWidth - 10), this.randomFood(0, this.canvasHeight - 10)])
     this.currentScore = 0;
+    this.appleBite = new Audio('./sound/appleBite.mp3');
   }
 
   public clearCanvas(): void  {
@@ -57,9 +65,10 @@ export class Game {
       this.clearCanvas(); 
 
       if (this.ateFood()) {
-        this.food.createFood();
-        this.score++;
-        document.getElementById('score').innerHTML = `${this.currentScore}`;
+        this.appleBite.play();
+        this.food.createFood(this.snake);
+        this.currentScore++;
+        document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
       }
 
       this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
