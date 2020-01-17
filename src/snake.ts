@@ -36,13 +36,14 @@ export class Snake {
       
     document.addEventListener('keydown', e => this.turn(e))
 
-    // this.snake.forEach(part => {
+    // this.body.forEach(part => {
     //   if (part.x !== this.food.foodLoc[0] && part.y !== this.food.foodLoc[1]) {
     //     this.food.createFood();
     //   }
     // })
 
     // caused repeated creation of 4-6 foods before setTimeout
+    // now causes 2 to spawn at game start.
   }
 
   public drawSnake(): void {
@@ -66,24 +67,17 @@ export class Snake {
     );
   }
 
-  public moveSnake(foodLoc: Array<number>): void  {
+  public moveSnake(foodLoc: Array<number>): void  { // being called by Game
     const head = { 
       x: this.body[0].x + this.dx, 
       y: this.body[0].y + this.dy,
     };
 
     this.body.unshift(head);
-    
-    // debugger
     const ateFood = (this.body[0].x === foodLoc[0] && this.body[0].y === foodLoc[1]);
 
-    if (ateFood) {
-      console.log('ate some food :',[foodLoc[0], foodLoc[1]])
-      this.food.createFood();
-      // TODO: increase score here
-    } else {
+    if (!ateFood) {
       this.body.pop();
-      this.food.drawFood();
     }
   }
   

@@ -23,24 +23,18 @@ export class Food {
     let foodX = this.randomFood(0, this.canvasWidth - 10);
     let foodY = this.randomFood(0, this.canvasHeight - 10)
     this.foodLoc = [foodX, foodY]
-    console.log('created Food: ',[foodX, foodY])
-    console.log('foodLoc is ',this.foodLoc)
-    console.log('drawing food from Food..')
-    // this.drawFood();
   }
 
-  public drawFood() {
+  public drawFood(x: number, y: number) {
     this.ctx.fillStyle = FOODCOLOR;
     this.ctx.strokeStyle = FOODSTROKECOLOR;
     this.ctx.fillRect(
-      this.foodLoc[0],
-      this.foodLoc[1],
-      // newFoodX,
-      // newFoodY,
+      // this.foodLoc[0],
+      // this.foodLoc[1],
+      x, y,
       10,
       10
     )
-    console.log('drew Food: ',[this.foodLoc[0], this.foodLoc[1]])
   }
 
   public updateFood(snake: any) {
