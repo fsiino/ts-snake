@@ -13,7 +13,6 @@ export class Food {
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
     this.foodLoc = [];
-    // this.snake = new Snake(canvas);
   }
 
   public randomFood(min: number, max: number): number { 
@@ -33,7 +32,6 @@ export class Food {
         this.createFood(snake);
       }
     })
-    
   }
 
   public drawFood(x: number, y: number) {

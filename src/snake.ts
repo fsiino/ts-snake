@@ -79,28 +79,24 @@ export class Snake {
         if (this.dx !== 10) { // Disables 180 degree turn e.g. (right -> left)
           this.dx = -10;
           this.dy = 0;
-          // console.log('l')
           break;
       }
       case RIGHT:
         if (this.dx !== -10) {
           this.dx = 10;
           this.dy = 0;
-          // console.log('r')
           break;
       }
       case UP:
         if (this.dy !== 10) {
           this.dx = 0;
           this.dy = -10;
-          // console.log('u')
           break;
       }
       case DOWN:
         if (this.dy !== -10) {
           this.dx = 0;
           this.dy = 10;
-          // console.log('d')
           break;
       }
       default:

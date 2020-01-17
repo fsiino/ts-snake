@@ -1,6 +1,7 @@
 import { Settings } from './constants';
 import { Snake } from './snake';
 import { Food } from './food';
+import { Grid } from './grid';
 
 export class Game {
   public canvas: HTMLCanvasElement;
@@ -8,6 +9,7 @@ export class Game {
   private requestedFrameId: number = -1;
   public snake: Snake;
   public food: Food;
+  public grid: Grid;
   public foodCoords: Array<any>
   public canvasWidth: number;
   public canvasHeight: number;
@@ -22,6 +24,7 @@ export class Game {
     this.canvasHeight = this.canvas.height;
     this.snake = new Snake(canvas);
     this.food = new Food(canvas);
+    this.grid = new Grid(canvas);
     this.foodCoords = [];
 
     this.snake.body.forEach((part: any) => {
@@ -71,6 +74,7 @@ export class Game {
         document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
       }
 
+      this.grid.drawGrid();
       this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
       this.snake.moveSnake(this.food.foodLoc); 
       this.snake.drawSnake();
