@@ -5,8 +5,8 @@ type snakePart = {
   y: number
 }
 
-const SNAKECOLOR = 'lightgreen';
-const SNAKESTROKECOLOR = 'darkgreen';
+const SNAKECOLOR = 'cyan';
+const SNAKESTROKECOLOR = 'blue';
 
 export class Snake {
   
