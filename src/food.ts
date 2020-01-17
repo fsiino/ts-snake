@@ -40,6 +40,9 @@ export class Food {
     this.ctx.fillRect(
       x, y, 10, 10
     )
+    this.ctx.strokeRect(
+      x, y, 10, 10
+    )
   }
 
 }

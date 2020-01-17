@@ -8,9 +8,15 @@ export const Settings = {
     FOODSTROKECOLOR: 'black',
   },
   game: {
-   CANVASBGCOLOR: 'gray',
+   CANVASBGCOLOR: 'rgb(68,105,220)',
    CANVASBORDERCOLOR: 'black',
-   GAMESPEED: 100,
+   GAMESPEED: 130,
   },
-  grid: {},
+  grid: {
+    TILECOLOR: 'black',
+    // TILESTROKE: '',
+    TILESROW: 40,
+    TILESCOL: 25
+  },
 } 
+

@@ -7,9 +7,9 @@ export class Game {
   public canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private requestedFrameId: number = -1;
-  public snake: Snake;
-  public food: Food;
-  public grid: Grid;
+  private snake: Snake;
+  private food: Food;
+  private grid: Grid;
   public foodCoords: Array<any>
   public canvasWidth: number;
   public canvasHeight: number;
@@ -50,13 +50,17 @@ export class Game {
     );
   }
 
-  public randomFood(min: number, max: number): number {
+  private randomFood(min: number, max: number): number {
     let randomCoord = Math.round((Math.random() * (max - min) + min) / 10) * 10;
     return randomCoord;
   }
 
-  public ateFood(): boolean {
+  private ateFood(): boolean {
     return this.snake.body[0].x === this.food.foodLoc[0] && this.snake.body[0].y === this.food.foodLoc[1]
+  }
+
+  private gameEnd() {
+    
   }
 
   private loop(): void  {

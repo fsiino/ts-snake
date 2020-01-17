@@ -13,7 +13,12 @@ canvas {
   border: 1px solid black;
   width: 800px;
   height: 500px;
-  background-color: lightgrey;
+}
+
+#high-score {
+  font-size: 36px;
+  color: white;
+  text-shadow: 2px 2px darkblue;
 }
 
 #score {

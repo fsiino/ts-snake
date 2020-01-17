@@ -8,4 +8,4 @@ Good luck! -->
 
 Created with TypeScript
 
-<a href="https://fsiino.github.io/ts-snake" target="_blank">Live Link</a>
+<a href="https://fsiino.github.io/ts-snake" target="_blank">Live Demo</a>

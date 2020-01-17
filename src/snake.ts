@@ -16,8 +16,6 @@ export class Snake {
   public food: Food;
   public dx: number;
   public dy: number;
-  public canvasWidth: number;
-  public canvasHeight: number;
 
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d');
@@ -26,16 +24,12 @@ export class Snake {
       {x: 140, y: 60},  
       {x: 130, y: 60},  
     ]
+    
     this.food = new Food(canvas);
     this.dx = 0;
     this.dy = 10;
-    this.canvasWidth = canvas.width;
-    this.canvasHeight = canvas.height;
       
     document.addEventListener('keydown', e => this.turn(e))
-
-    // caused repeated creation of 4-6 foods before setTimeout
-    // now causes 2 to spawn at game start.
   }
 
   public drawSnake(): void {
