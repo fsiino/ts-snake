@@ -4,8 +4,8 @@ Create this app using typescript.
 
 Good luck! -->
 
-## Power Snake
+## TS Snake
 
-Created with TypeScript
+<!-- Created with TypeScript
 
-<a href="https://fsiino.github.io/ts-snake" target="_blank">Live Demo</a>
+<a href="https://fsiino.github.io/ts-snake" target="_blank">Live Demo</a> -->
