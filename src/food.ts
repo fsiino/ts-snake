@@ -1,5 +1,4 @@
-const FOODCOLOR = 'red';
-const FOODSTROKECOLOR = 'black';
+import { Settings } from './constants';
 
 export class Food {
   public ctx: CanvasRenderingContext2D;
@@ -26,21 +25,11 @@ export class Food {
   }
 
   public drawFood(x: number, y: number) {
-    this.ctx.fillStyle = FOODCOLOR;
-    this.ctx.strokeStyle = FOODSTROKECOLOR;
+    this.ctx.fillStyle = Settings.food.FOODCOLOR;
+    this.ctx.strokeStyle = Settings.food.FOODSTROKECOLOR;
     this.ctx.fillRect(
-      // this.foodLoc[0],
-      // this.foodLoc[1],
-      x, y,
-      10,
-      10
+      x, y, 10, 10
     )
-  }
-
-  public updateFood(snake: any) {
-    // determine collision with snake here and use it for loop
-    // if collision, create and draw new food
-    // else draw
   }
 
 }

@@ -1,3 +1,4 @@
+import { Settings} from './constants';
 import { Food } from './food';
 
 type snakePart = {
@@ -5,15 +6,15 @@ type snakePart = {
   y: number
 }
 
-const SNAKECOLOR = 'cyan';
-const SNAKESTROKECOLOR = 'blue';
+// const SNAKECOLOR = 'cyan';
+// const SNAKESTROKECOLOR = 'blue';
 
 export class Snake {
   
   public ctx: CanvasRenderingContext2D;
   public body: Array<snakePart>;
   public food: Food;
-  public score: number = 0;
+  // public score: number = 0;
   public dx: number;
   public dy: number;
   public canvasWidth: number;
@@ -51,8 +52,8 @@ export class Snake {
   }
 
   public drawSnakePart(snakePart: snakePart): void {
-    this.ctx.fillStyle = SNAKECOLOR;  
-    this.ctx.strokeStyle = SNAKESTROKECOLOR; 
+    this.ctx.fillStyle = Settings.snake.SNAKECOLOR;  
+    this.ctx.strokeStyle = Settings.snake.SNAKESTROKECOLOR; 
     this.ctx.fillRect(
       snakePart.x, 
       snakePart.y, 

@@ -1,10 +1,6 @@
+import { Settings } from './constants';
 import { Snake } from './snake';
 import { Food } from './food';
-
-// TODO: Move consts to its own file ?
-const CANVASBGCOLOR = 'gray';
-const CANVASBORDERCOLOR = 'black';
-const GAMESPEED = 100;
 
 export class Game {
   public canvas: HTMLCanvasElement;
@@ -15,6 +11,7 @@ export class Game {
   public foodCoords: Array<any>
   public canvasWidth: number;
   public canvasHeight: number;
+  public currentScore: number;
   // private loopCount = 0;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -28,22 +25,17 @@ export class Game {
     this.food.createFood()
     this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1])
     this.foodCoords.push(...[this.randomFood(0, this.canvasWidth - 10), this.randomFood(0, this.canvasHeight - 10)])
+    this.currentScore = 0;
   }
 
   public clearCanvas(): void  {
-    this.ctx.fillStyle = CANVASBGCOLOR;
-    this.ctx.strokeStyle = CANVASBORDERCOLOR;
+    this.ctx.fillStyle = Settings.game.CANVASBGCOLOR;
+    this.ctx.strokeStyle = Settings.game.CANVASBORDERCOLOR;
     this.ctx.fillRect(
-      0, 
-      0, 
-      this.canvas.width, 
-      this.canvas.height
+      0, 0, this.canvas.width, this.canvas.height
     );
     this.ctx.strokeRect(
-      0, 
-      0, 
-      this.canvas.width,
-      this.canvas.height
+      0, 0, this.canvas.width, this.canvas.height
     );
   }
 
@@ -61,16 +53,20 @@ export class Game {
     // console.log("looping");
     // console.log(++this.loopCount);
 
-    setTimeout(() => {
+    setTimeout((): void => {
       this.clearCanvas(); 
 
-      if (this.ateFood()) this.food.createFood();
+      if (this.ateFood()) {
+        this.food.createFood();
+        this.score++;
+        document.getElementById('score').innerHTML = `${this.currentScore}`;
+      }
 
       this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
       this.snake.moveSnake(this.food.foodLoc); 
       this.snake.drawSnake();
       this.loop();
-    }, GAMESPEED);
+    }, Settings.game.GAMESPEED);
   }
 
   public startLoop(): void  {
