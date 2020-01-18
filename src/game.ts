@@ -70,8 +70,8 @@ export class Game {
 
   private gameOver(): void {
     this.endLoop();
-
     this.highScore = this.currentScore;
+
     document.querySelector('#high-score').innerHTML = `High Score: ${this.currentScore}`
 
     this.ctx.fillStyle = 'white';
@@ -101,6 +101,10 @@ export class Game {
     this.startLoop();
   }
 
+  private pauseGame() {
+    this.endLoop;
+  }
+
   private loop(): void  {
     // this.requestedFrameId = requestAnimationFrame(() => this.loop());
     // console.log("looping");
@@ -111,6 +115,18 @@ export class Game {
       return;
     };
 
+    document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
+    document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
+      if (this.appleBite.muted) {
+        this.appleBite.muted = false;
+      } else {
+        this.appleBite.muted = true;
+      }
+    })
+    document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
+      this.endLoop();
+    })
+
     setTimeout((): void => {
       this.clearCanvas(); 
 
@@ -119,9 +135,7 @@ export class Game {
         this.food.createFood(this.snake);
         this.currentScore++;
       }
-
-      document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
-
+      
       this.grid.drawGrid();
       this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
       this.snake.moveSnake(this.food.foodLoc); 
