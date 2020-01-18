@@ -63,7 +63,7 @@ export class Game {
   private hitWall() {
     // Check if snake hits canvas boundaries:
     const head = this.snake.body[0];
-    if (head.x <= 0 || head.x >= this.canvasWidth - 10 || head.y <= 0 || head.y >= this.canvasHeight - 10) {
+    if (head.x < 0 || head.x > this.canvasWidth - 10 || head.y < 0 || head.y > this.canvasHeight - 10) {
       return true;
     }
   }
@@ -116,8 +116,9 @@ export class Game {
         this.appleBite.play();
         this.food.createFood(this.snake);
         this.currentScore++;
-        document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
       }
+
+      document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
 
       this.grid.drawGrid();
       this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
