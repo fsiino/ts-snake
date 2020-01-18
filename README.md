@@ -4,7 +4,7 @@ Create this app using typescript.
 
 Good luck! -->
 
-## TS Snake
+## TypeScript Snake
 <!-- 
 Created with TypeScript
 

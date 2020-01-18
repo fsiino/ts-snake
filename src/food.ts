@@ -28,9 +28,7 @@ export class Food {
     snake.body.forEach((part: any) => {
       if (part.x !== foodX && part.y !== foodY) {
         this.foodLoc = [foodX, foodY]
-      } else {
-        this.createFood(snake);
-      }
+      };
     })
   }
 
