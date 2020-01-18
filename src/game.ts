@@ -13,7 +13,8 @@ export class Game {
   public foodCoords: Array<any>
   public canvasWidth: number;
   public canvasHeight: number;
-  public currentScore: number;
+  public currentScore: number = 0;
+  public highScore: number;
   public appleBite: any;
   // private loopCount = 0;
 
@@ -56,7 +57,7 @@ export class Game {
   }
 
   private ateFood(): boolean {
-    return this.snake.body[0].x === this.food.foodLoc[0] && this.snake.body[0].y === this.food.foodLoc[1]
+    return this.snake.body[0].x === this.food.foodLoc[0] && this.snake.body[0].y === this.food.foodLoc[1];
   }
 
   private hitWall() {
@@ -68,12 +69,20 @@ export class Game {
   }
 
   private gameOver(): void {
+    this.endLoop();
+
+    this.highScore = this.currentScore;
+    document.querySelector('#high-score').innerHTML = `High Score: ${this.currentScore}`
+
     this.ctx.textAlign = 'center';
     this.ctx.font = '18pt Arial';
-    this.ctx.fillText('Game Over', this.canvasWidth / 2, (this.canvasHeight / 2) - 12)
+    this.ctx.fillText('Game Over', this.canvasWidth / 2, (this.canvasHeight / 2) - 20)
     this.ctx.textAlign = 'center';
     this.ctx.font = '12pt Arial';
-    this.ctx.fillText('Press Enter to play again', this.canvasWidth / 2, (this.canvasHeight / 2) + 18)
+    this.ctx.fillText(`You scored ${this.currentScore}`, this.canvasWidth / 2, (this.canvasHeight / 2))
+    this.ctx.textAlign = 'center';
+    this.ctx.font = '12pt Arial';
+    this.ctx.fillText('Press Enter to play again', this.canvasWidth / 2, (this.canvasHeight / 2) + 24)
 
     document.addEventListener('keydown', e => {
       if (e.keyCode === 13) this.restart();
@@ -82,14 +91,12 @@ export class Game {
 
   private restart(): void {
     this.currentScore = 0;
-    this.snake.body = this.snake.body = [
-      { x: 150, y: 60 },  // head
-      { x: 140, y: 60 },
-      { x: 130, y: 60 },
-    ]
+    this.snake = new Snake(this.canvas);
+    this.food = new Food(this.canvas);
+    this.food.createFood(this.snake);
     this.snake.dx = 0;
     this.snake.dy = 10;
-    this.loop();
+    this.startLoop();
   }
 
   private loop(): void  {
