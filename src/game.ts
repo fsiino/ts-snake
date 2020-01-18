@@ -74,12 +74,14 @@ export class Game {
     this.highScore = this.currentScore;
     document.querySelector('#high-score').innerHTML = `High Score: ${this.currentScore}`
 
+    this.ctx.fillStyle = 'white';
+    this.ctx.strokeStyle = 'black';
     this.ctx.textAlign = 'center';
     this.ctx.font = '18pt Arial';
     this.ctx.fillText('Game Over', this.canvasWidth / 2, (this.canvasHeight / 2) - 20)
     this.ctx.textAlign = 'center';
     this.ctx.font = '12pt Arial';
-    this.ctx.fillText(`You scored ${this.currentScore}`, this.canvasWidth / 2, (this.canvasHeight / 2))
+    this.ctx.fillText(`You scored ${this.currentScore}`, this.canvasWidth / 2, (this.canvasHeight / 2) + 2)
     this.ctx.textAlign = 'center';
     this.ctx.font = '12pt Arial';
     this.ctx.fillText('Press Enter to play again', this.canvasWidth / 2, (this.canvasHeight / 2) + 24)

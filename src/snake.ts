@@ -10,6 +10,7 @@ export class Snake {
   
   public ctx: CanvasRenderingContext2D;
   public body: Array<snakePart>;
+  public head: Array<snakePart>;
   public food: Food;
   public dx: number;
   public dy: number;
@@ -30,10 +31,28 @@ export class Snake {
   }
 
   public drawSnake(): void {
-    this.body.forEach(snakePart => this.drawSnakePart(snakePart));
+    this.body.slice(1).forEach(snakePart => this.drawSnakePart(snakePart));
+    this.drawSnakeHead(this.body[0]);
   }
 
-  public drawSnakePart(snakePart: snakePart): void {
+  private drawSnakeHead(snakeHead: snakePart): void {
+    this.ctx.fillStyle = Settings.snake.SNAKEHEADCOLOR;
+    this.ctx.strokeStyle = Settings.snake.SNAKEHEADSTROKECOLOR;
+    this.ctx.fillRect(
+      snakeHead.x, snakeHead.y, 10, 10
+    );
+    this.ctx.strokeRect(
+      snakeHead.x, snakeHead.y, 10, 10
+    );
+    this.ctx.beginPath();
+    this.ctx.arc(snakeHead.x + 3, snakeHead.y + 3, 1, 0, 4 * Math.PI)
+    this.ctx.stroke();
+    this.ctx.beginPath();
+    this.ctx.arc(snakeHead.x + 7, snakeHead.y + 3, 1, 0, 4 * Math.PI)
+    this.ctx.stroke();
+  }
+
+  private drawSnakePart(snakePart: snakePart): void {
     this.ctx.fillStyle = Settings.snake.SNAKECOLOR;  
     this.ctx.strokeStyle = Settings.snake.SNAKESTROKECOLOR; 
     this.ctx.fillRect(

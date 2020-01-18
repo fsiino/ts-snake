@@ -1,6 +1,8 @@
 export const Settings = {
   snake: {
     SNAKECOLOR: 'cyan',
+    SNAKEHEADCOLOR: 'purple',
+    SNAKEHEADSTROKECOLOR: 'black',
     SNAKESTROKECOLOR : 'blue',
   },
   food: {
