@@ -14,9 +14,9 @@ export const Settings = {
   },
   grid: {
     TILECOLOR: 'black',
-    // TILESTROKE: '',
-    TILESROW: 40,
-    TILESCOL: 25
+    TILESTROKE: 'rgb(68,105,220)',
+    TILESROW: 35,
+    TILESCOL: 20
   },
 } 
 

@@ -44,5 +44,4 @@ export class Food {
       x, y, 10, 10
     )
   }
-
 }

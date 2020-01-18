@@ -6,9 +6,6 @@ type snakePart = {
   y: number
 }
 
-// const SNAKECOLOR = 'cyan';
-// const SNAKESTROKECOLOR = 'blue';
-
 export class Snake {
   
   public ctx: CanvasRenderingContext2D;
@@ -24,7 +21,7 @@ export class Snake {
       {x: 140, y: 60},  
       {x: 130, y: 60},  
     ]
-    
+
     this.food = new Food(canvas);
     this.dx = 0;
     this.dy = 10;
@@ -97,5 +94,4 @@ export class Snake {
         return;
     };
   }
-  
 }

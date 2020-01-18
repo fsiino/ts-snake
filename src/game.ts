@@ -59,14 +59,48 @@ export class Game {
     return this.snake.body[0].x === this.food.foodLoc[0] && this.snake.body[0].y === this.food.foodLoc[1]
   }
 
-  private gameEnd() {
-    
+  private hitWall() {
+    // Check if snake hits canvas boundaries:
+    const head = this.snake.body[0];
+    if (head.x <= 0 || head.x >= this.canvasWidth - 10 || head.y <= 0 || head.y >= this.canvasHeight - 10) {
+      return true;
+    }
+  }
+
+  private gameOver(): void {
+    this.ctx.textAlign = 'center';
+    this.ctx.font = '18pt Arial';
+    this.ctx.fillText('Game Over', this.canvasWidth / 2, (this.canvasHeight / 2) - 12)
+    this.ctx.textAlign = 'center';
+    this.ctx.font = '12pt Arial';
+    this.ctx.fillText('Press Enter to play again', this.canvasWidth / 2, (this.canvasHeight / 2) + 18)
+
+    document.addEventListener('keydown', e => {
+      if (e.keyCode === 13) this.restart();
+    })
+  }
+
+  private restart(): void {
+    this.currentScore = 0;
+    this.snake.body = this.snake.body = [
+      { x: 150, y: 60 },  // head
+      { x: 140, y: 60 },
+      { x: 130, y: 60 },
+    ]
+    this.snake.dx = 0;
+    this.snake.dy = 10;
+    this.loop();
   }
 
   private loop(): void  {
     // this.requestedFrameId = requestAnimationFrame(() => this.loop());
     // console.log("looping");
     // console.log(++this.loopCount);
+
+    if (this.hitWall()) {
+      this.gameOver();
+      return;
+    };
 
     setTimeout((): void => {
       this.clearCanvas(); 
@@ -82,6 +116,7 @@ export class Game {
       this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
       this.snake.moveSnake(this.food.foodLoc); 
       this.snake.drawSnake();
+
       this.loop();
     }, Settings.game.GAMESPEED);
   }
@@ -93,5 +128,4 @@ export class Game {
   public endLoop(): void  {
     cancelAnimationFrame(this.requestedFrameId);
   }
-
 }

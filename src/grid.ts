@@ -18,7 +18,7 @@ export class Grid {
     this.drawGrid();
   }
 
-  drawGrid() {
+  drawGrid(): void {
     this.ctx.fillStyle = Settings.grid.TILECOLOR;
     this.ctx.strokeStyle = Settings.game.CANVASBGCOLOR;
     let tilesAcross = Settings.grid.TILESROW;
@@ -34,6 +34,5 @@ export class Grid {
         )
       }
     }
-
   }
 }
