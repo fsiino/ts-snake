@@ -104,14 +104,18 @@ export class Game {
   }
 
   private pauseGame() {
-    if (this.isPaused) {
-      this.endLoop();
-      this.isPaused = false;
-      console.log('unpause')
-    } else {
-      this.startLoop();
+    let lastDir = [this.snake.dx, this.snake.dy]; // save snake dir
+    if (!this.isPaused) { // game not paused
+      this.snake.dx = 0; // stop snake
+      this.snake.dy = 0; // stop snake
       this.isPaused = true;
       console.log('pause')
+      console.log(lastDir)
+    } else { // game paused
+      this.snake.dx = lastDir[0];
+      this.snake.dy = lastDir[1];
+      this.isPaused = false;
+      console.log('unpause')
     }
   }
 
@@ -120,26 +124,23 @@ export class Game {
     // console.log("looping");
     // console.log(++this.loopCount);
 
-    document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
-      this.pauseGame();
-    })
-
     if (this.hitWall()) {
       this.gameOver();
       return;
     };
 
-    document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
-    document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
-      if (this.appleBite.muted) {
-        this.appleBite.muted = false;
-      } else {
-        this.appleBite.muted = true;
-      }
-    })
-    document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
-      this.endLoop();
-    })
+    // document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
+    //   this.pauseGame();
+    // })
+
+    // document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
+    // document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
+    //   if (this.appleBite.muted) {
+    //     this.appleBite.muted = false;
+    //   } else {
+    //     this.appleBite.muted = true;
+    //   }
+    // })
 
     setTimeout((): void => {
       this.clearCanvas(); 

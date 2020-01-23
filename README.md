@@ -4,11 +4,10 @@ Create this app using typescript.
 
 Good luck! -->
 
-## TypeScript Snake
-<!-- 
+## Snake
 Created with TypeScript
 
-<a href="https://fsiino.github.io/ts-snake" target="_blank">Live Demo</a> -->
+<a href="https://fsiino.github.io/ts-snake" target="_blank">Live Demo</a> 
 
 <!-- ### Bugs
 * Apple still spawns beneath snake
