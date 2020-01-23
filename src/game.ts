@@ -16,6 +16,7 @@ export class Game {
   public currentScore: number = 0;
   public highScore: number;
   public appleBite: any;
+  private isPaused: boolean;
   // private loopCount = 0;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -38,6 +39,7 @@ export class Game {
     this.foodCoords.push(...[this.randomFood(0, this.canvasWidth - 10), this.randomFood(0, this.canvasHeight - 10)])
     this.currentScore = 0;
     this.appleBite = new Audio('./sound/appleBite.mp3');
+    this.isPaused = false;
   }
 
   public clearCanvas(): void  {
@@ -102,13 +104,25 @@ export class Game {
   }
 
   private pauseGame() {
-    this.endLoop;
+    if (this.isPaused) {
+      this.endLoop();
+      this.isPaused = false;
+      console.log('unpause')
+    } else {
+      this.startLoop();
+      this.isPaused = true;
+      console.log('pause')
+    }
   }
 
   private loop(): void  {
     // this.requestedFrameId = requestAnimationFrame(() => this.loop());
     // console.log("looping");
     // console.log(++this.loopCount);
+
+    document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
+      this.pauseGame();
+    })
 
     if (this.hitWall()) {
       this.gameOver();
