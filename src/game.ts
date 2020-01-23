@@ -133,7 +133,7 @@ export class Game {
     //   this.pauseGame();
     // })
 
-    // document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
+    document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
     // document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
     //   if (this.appleBite.muted) {
     //     this.appleBite.muted = false;
