@@ -74,7 +74,7 @@ export class Game {
     this.endLoop();
     this.highScore = this.currentScore;
 
-    document.querySelector('#high-score').innerHTML = `High Score: ${this.currentScore}`
+    document.querySelector('#high-score span').innerHTML = `${this.currentScore}`
 
     this.ctx.fillStyle = 'white';
     this.ctx.strokeStyle = 'black';
@@ -103,19 +103,38 @@ export class Game {
     this.startLoop();
   }
 
-  private pauseGame() {
-    let lastDir = [this.snake.dx, this.snake.dy]; // save snake dir
-    if (!this.isPaused) { // game not paused
+  // private pauseGame() {
+  //   let lastDir = [this.snake.dx, this.snake.dy]; // save snake dir
+  //   if (!this.isPaused) { // game not paused
+  //     this.snake.dx = 0; // stop snake
+  //     this.snake.dy = 0; // stop snake
+  //     this.isPaused = true;
+  //     console.log('pause')
+  //     console.log(lastDir)
+  //   } else { // game paused
+  //     this.snake.dx = lastDir[0];
+  //     this.snake.dy = lastDir[1];
+  //     this.isPaused = false;
+  //     console.log('unpause')
+  //   }
+  // }
+
+  private setGameState(state: String): void {
+    let lastDir: Array<number> = [this.snake.dx, this.snake.dy]; // save snake dir
+    let lastTurn: String;
+    if (state === 'pause') {
+      lastDir = [this.snake.dx, this.snake.dy]
       this.snake.dx = 0; // stop snake
       this.snake.dy = 0; // stop snake
       this.isPaused = true;
-      console.log('pause')
-      console.log(lastDir)
-    } else { // game paused
-      this.snake.dx = lastDir[0];
-      this.snake.dy = lastDir[1];
+      // console.log('paused')
+      // console.log(lastDir)
+    } else {
       this.isPaused = false;
-      console.log('unpause')
+      this.snake.dx = lastDir[0]; 
+      this.snake.dy = lastDir[1]; 
+      // console.log('unpaused')
+      // console.log(lastDir)
     }
   }
 
@@ -130,10 +149,18 @@ export class Game {
     };
 
     // document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
-    //   this.pauseGame();
+    //   if (!this.isPaused) {
+    //     setTimeout(() => {
+    //       this.setGameState('pause');
+    //     }, Settings.game.GAMESPEED)
+    //   } else {
+    //     setTimeout(() => {
+    //       this.setGameState('unpause');
+    //     }, Settings.game.GAMESPEED)
+    //   }
     // })
 
-    document.getElementById('score').innerHTML = `Score: ${this.currentScore}`;
+    
     // document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
     //   if (this.appleBite.muted) {
     //     this.appleBite.muted = false;
@@ -141,6 +168,8 @@ export class Game {
     //     this.appleBite.muted = true;
     //   }
     // })
+
+    document.querySelector('#score span').innerHTML = `${this.currentScore}`;
 
     setTimeout((): void => {
       this.clearCanvas(); 

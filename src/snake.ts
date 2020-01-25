@@ -70,14 +70,12 @@ export class Snake {
     };
 
     this.body.unshift(head);
-    const ateFood = (this.body[0].x === foodLoc[0] && this.body[0].y === foodLoc[1]);
 
-    if (!ateFood) {
-      this.body.pop();
-    }
+    const ateFood = (this.body[0].x === foodLoc[0] && this.body[0].y === foodLoc[1]);
+    if (!ateFood) this.body.pop();
   }
   
-  public turn(e: any): void {
+  public turn(e: any): String {
     const LEFT = 65;
     const RIGHT = 68;
     const UP = 87;
@@ -89,25 +87,29 @@ export class Snake {
         if (this.dx !== 10) { // Disables 180 degree turn e.g. (right -> left)
           this.dx = -10;
           this.dy = 0;
-          break;
+          return 'L'
+          // break;
       }
       case RIGHT:
         if (this.dx !== -10) {
           this.dx = 10;
           this.dy = 0;
-          break;
+          return 'R'
+          // break;
       }
       case UP:
         if (this.dy !== 10) {
           this.dx = 0;
           this.dy = -10;
-          break;
+          return 'U'
+          // break;
       }
       case DOWN:
         if (this.dy !== -10) {
           this.dx = 0;
           this.dy = 10;
-          break;
+          return 'D'
+          // break;
       }
       default:
         return;

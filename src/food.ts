@@ -24,10 +24,10 @@ export class Food {
 
     let foodX = this.randomFood(0, this.canvasWidth - 10);
     let foodY = this.randomFood(0, this.canvasHeight - 10)
-
+    
     snake.body.forEach((part: any) => {
       if (part.x !== foodX && part.y !== foodY) {
-        this.foodLoc = [foodX, foodY]
+        this.foodLoc = [foodX, foodY]                                                
       };
     })
   }
