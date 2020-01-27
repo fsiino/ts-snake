@@ -25,6 +25,7 @@ export class Food {
     let foodX = this.randomFood(0, this.canvasWidth - 10);
     let foodY = this.randomFood(0, this.canvasHeight - 10)
     
+    TODO: Food still spawning under Snake
     snake.body.forEach((part: any) => {
       if (part.x !== foodX && part.y !== foodY) {
         this.foodLoc = [foodX, foodY]                                                
