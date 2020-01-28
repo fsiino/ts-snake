@@ -16,6 +16,8 @@ export class Game {
   public currentScore: number = 0;
   public highScore: number;
   public appleBite: any;
+  public gameMusic: any;
+  public gameMuted: boolean;
   private isPaused: boolean;
   // private loopCount = 0;
 
@@ -39,7 +41,11 @@ export class Game {
     this.foodCoords.push(...[this.randomFood(0, this.canvasWidth - 10), this.randomFood(0, this.canvasHeight - 10)])
     this.currentScore = 0;
     this.appleBite = new Audio('./sound/appleBite.mp3');
+    this.gameMusic = new Audio('./sound/Hero_Dance_Party.mp3');
+    this.gameMuted = true;
     this.isPaused = false;
+
+    // this.gameMusic.play();
   }
 
   public clearCanvas(): void  {
@@ -71,6 +77,7 @@ export class Game {
   }
 
   private gameOver(): void {
+    this.gameMusic.pause();
     this.endLoop();
     this.highScore = this.currentScore;
 
@@ -135,13 +142,19 @@ export class Game {
       }
     })
     
-    // document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
-    //   if (this.appleBite.muted) {
-    //     this.appleBite.muted = false;
-    //   } else {
-    //     this.appleBite.muted = true;
-    //   }
-    // })
+    document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
+      if (this.gameMuted) {
+        this.gameMuted = false;
+        document.getElementById('mute-btn').innerHTML = 'Mute SFX & Music'
+        this.appleBite.muted = false;
+        this.gameMusic.muted = false;
+      } else {
+        this.gameMuted = true;
+        document.getElementById('mute-btn').innerHTML = 'Unmute SFX & Music'
+        this.appleBite.muted = true;
+        this.gameMusic.muted = true;
+      }
+    })
 
     document.querySelector('#score span').innerHTML = `${this.currentScore}`;
 
