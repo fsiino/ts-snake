@@ -103,38 +103,11 @@ export class Game {
     this.startLoop();
   }
 
-  // private pauseGame() {
-  //   let lastDir = [this.snake.dx, this.snake.dy]; // save snake dir
-  //   if (!this.isPaused) { // game not paused
-  //     this.snake.dx = 0; // stop snake
-  //     this.snake.dy = 0; // stop snake
-  //     this.isPaused = true;
-  //     console.log('pause')
-  //     console.log(lastDir)
-  //   } else { // game paused
-  //     this.snake.dx = lastDir[0];
-  //     this.snake.dy = lastDir[1];
-  //     this.isPaused = false;
-  //     console.log('unpause')
-  //   }
-  // }
-
-  private setGameState(state: String): void {
-    let lastDir: Array<number> = [this.snake.dx, this.snake.dy]; // save snake dir
-    let lastTurn: String;
+  private pauseGame(state: String): void {
     if (state === 'pause') {
-      lastDir = [this.snake.dx, this.snake.dy]
-      this.snake.dx = 0; // stop snake
-      this.snake.dy = 0; // stop snake
       this.isPaused = true;
-      // console.log('paused')
-      // console.log(lastDir)
     } else {
       this.isPaused = false;
-      this.snake.dx = lastDir[0]; 
-      this.snake.dy = lastDir[1]; 
-      // console.log('unpaused')
-      // console.log(lastDir)
     }
   }
 
@@ -148,18 +121,19 @@ export class Game {
       return;
     };
 
-    // document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
-    //   if (!this.isPaused) {
-    //     setTimeout(() => {
-    //       this.setGameState('pause');
-    //     }, Settings.game.GAMESPEED)
-    //   } else {
-    //     setTimeout(() => {
-    //       this.setGameState('unpause');
-    //     }, Settings.game.GAMESPEED)
-    //   }
-    // })
-
+    document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
+      if (!this.isPaused) {
+        setTimeout(() => {
+          this.pauseGame('pause');
+          document.getElementById('pause-btn').innerHTML = 'Unpause Game'
+        }, Settings.game.GAMESPEED)
+      } else {
+        setTimeout(() => {
+          this.pauseGame('unpause');
+          document.getElementById('pause-btn').innerHTML = 'Pause Game'
+        }, Settings.game.GAMESPEED)
+      }
+    })
     
     // document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
     //   if (this.appleBite.muted) {
@@ -182,7 +156,11 @@ export class Game {
       
       this.grid.drawGrid();
       this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
-      this.snake.moveSnake(this.food.foodLoc); 
+
+      if (!this.isPaused) {
+        this.snake.moveSnake(this.food.foodLoc); 
+      }
+      
       this.snake.drawSnake();
 
       this.loop();
