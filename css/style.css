@@ -44,7 +44,7 @@ canvas {
 .button-wrapper {
   display: flex;
   justify-content: center;
-  margin: auto;
+  margin: 10px;
 }
 
 .button-wrapper button {
@@ -64,7 +64,14 @@ canvas {
 
 footer {
   text-align: center;
-  padding: 20px;
+  /* padding: 20px; */
+}
+
+button {
+  height: 35px;
+  color: white;
+  background-color: blueviolet;
+  border: 1px solid darkcyan;
 }
 
 footer ul {
