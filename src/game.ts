@@ -23,6 +23,7 @@ export class Game {
   public musicMuted: boolean;
 
   private isPaused: boolean;
+  private gameOver: boolean;
   // private loopCount = 0;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -52,6 +53,7 @@ export class Game {
     this.musicMuted = true;
 
     this.isPaused = false;
+    this.gameOver = false;
 
     this.gameMusic.play();
     this.gameMusic.muted = true;
@@ -86,9 +88,20 @@ export class Game {
     return false;
   }
 
-  private gameOver(): void {
-    this.gameMusic.pause();
+  private endGame(): void {
     this.endLoop();
+    this.gameOver = true;
+
+    // let nodes = document.querySelectorAll<HTMLElement>('.button-wrapper button');
+    // for (let i = 0; i < nodes.length; i++) {
+    //   nodes[i].style.cursor = 'not-allowed';
+    //   nodes[i].setAttribute('id', 'disabled');
+    // }
+
+    if (!this.musicMuted) {
+      this.toggleMusic();
+    }
+    
     this.highScore = this.currentScore;
 
     document.querySelector('#high-score span').innerHTML = `${this.currentScore}`
@@ -111,6 +124,7 @@ export class Game {
   }
 
   private restart(): void {
+    this.gameOver = false;
     this.currentScore = 0;
     this.snake = new Snake(this.canvas);
     this.food = new Food(this.canvas);
@@ -126,62 +140,72 @@ export class Game {
     } else {
       this.isPaused = false;
     }
+    this.toggleMusic();
+  }
+
+  private toggleMusic(): void {
+    if (this.musicMuted) {
+      setTimeout(() => {
+        this.musicMuted = false;
+        document.getElementById('music-mute-btn').innerHTML = 'Mute Music'
+        this.gameMusic.muted = false;
+      }, Settings.game.GAMESPEED)
+    } else {
+      setTimeout(() => {
+        this.musicMuted = true;
+        document.getElementById('music-mute-btn').innerHTML = 'Unmute Music'
+        this.gameMusic.muted = true;
+      }, Settings.game.GAMESPEED)
+    }
+  }
+
+  private toggleSFX(): void {
+    if (this.biteMuted) {
+      setTimeout(() => {
+        this.biteMuted = false;
+        document.getElementById('bite-mute-btn').innerHTML = 'Mute SFX'
+        this.foodBite.muted = false;
+      }, Settings.game.GAMESPEED)
+    } else {
+      setTimeout(() => {
+        this.biteMuted = true;
+        document.getElementById('bite-mute-btn').innerHTML = 'Unmute SFX'
+        this.foodBite.muted = true;
+      }, Settings.game.GAMESPEED)
+    }
   }
 
   private loop(): void  {
     // this.requestedFrameId = requestAnimationFrame(() => this.loop());
     // console.log("looping");
     // console.log(++this.loopCount);
-
+    
+    // TODO: Fix game acceleration on 3rd restart after gameOver
     if (this.hitWall()) {
-      this.gameOver();
+      this.endGame(); 
       return;
     };
 
-    document.querySelector('.button-wrapper #pause-btn').addEventListener('click', e => {
+    document.querySelector('.button-wrapper #pause-btn').addEventListener('click', () => {
       if (!this.isPaused) {
         setTimeout(() => {
           this.pauseGame('pause');
-          document.getElementById('pause-btn').innerHTML = 'Unpause Game'
+          document.getElementById('pause-btn').innerHTML = 'Unpause Game';
         }, Settings.game.GAMESPEED);
       } else {
         setTimeout(() => {
           this.pauseGame('unpause');
-          document.getElementById('pause-btn').innerHTML = 'Pause Game'
+          document.getElementById('pause-btn').innerHTML = 'Pause Game';
         }, Settings.game.GAMESPEED);
       }
     })
     
-    document.querySelector('.button-wrapper #bite-mute-btn').addEventListener('click', e => {
-      if (this.biteMuted) {
-        setTimeout(() => {
-          this.biteMuted = false;
-          document.getElementById('bite-mute-btn').innerHTML = 'Mute SFX'
-          this.foodBite.muted = false;
-        }, Settings.game.GAMESPEED)
-      } else {
-        setTimeout(() => {
-          this.biteMuted = true;
-          document.getElementById('bite-mute-btn').innerHTML = 'Unmute SFX'
-          this.foodBite.muted = true;
-        }, Settings.game.GAMESPEED)
-      }
+    document.querySelector('.button-wrapper #bite-mute-btn').addEventListener('click', () => {
+      this.toggleSFX();
     })
     
-    document.querySelector('.button-wrapper #music-mute-btn').addEventListener('click', e => {
-      if (this.musicMuted) {
-        setTimeout(() => {
-          this.musicMuted = false;
-          document.getElementById('music-mute-btn').innerHTML = 'Mute Music'
-          this.gameMusic.muted = false;
-        }, Settings.game.GAMESPEED)
-      } else {
-        setTimeout(() => {
-          this.musicMuted = true;
-          document.getElementById('music-mute-btn').innerHTML = 'Unmute Music'
-          this.gameMusic.muted = true;
-        }, Settings.game.GAMESPEED)
-      }
+    document.querySelector('.button-wrapper #music-mute-btn').addEventListener('click', () => {
+      this.toggleMusic();
     })
 
     document.querySelector('#score span').innerHTML = `${this.currentScore}`;
