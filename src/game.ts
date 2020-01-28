@@ -134,13 +134,19 @@ export class Game {
     this.startLoop();
   }
 
-  private pauseGame(state: String): void {
-    if (state === 'pause') {
+  // TODO: Preserve !musicMuted when pausing + unpausing
+  private pauseGame(action: String): void {
+    if (action === 'pause') {
       this.isPaused = true;
-    } else {
+      if (!this.musicMuted) {
+        this.toggleMusic();
+      }
+    } else if (action === 'unpause') {
       this.isPaused = false;
+      if (!this.musicMuted) {
+        this.toggleMusic();
+      }
     }
-    this.toggleMusic();
   }
 
   private toggleMusic(): void {
