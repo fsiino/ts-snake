@@ -15,11 +15,13 @@ export class Game {
   public canvasHeight: number;
   public currentScore: number = 0;
   public highScore: number;
+
   public foodBite: any;
   public gameMusic: any;
 
   public biteMuted: boolean;
   public musicMuted: boolean;
+
   private isPaused: boolean;
   // private loopCount = 0;
 
@@ -141,12 +143,12 @@ export class Game {
         setTimeout(() => {
           this.pauseGame('pause');
           document.getElementById('pause-btn').innerHTML = 'Unpause Game'
-        }, Settings.game.GAMESPEED)
+        }, Settings.game.GAMESPEED);
       } else {
         setTimeout(() => {
           this.pauseGame('unpause');
           document.getElementById('pause-btn').innerHTML = 'Pause Game'
-        }, Settings.game.GAMESPEED)
+        }, Settings.game.GAMESPEED);
       }
     })
     

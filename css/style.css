@@ -48,7 +48,13 @@ canvas {
 }
 
 .button-wrapper button {
-  margin: 5px 170px 0 170px;
+  margin: 5px 15px;
+  height: 35px;
+  width: 100px;
+  color: white;
+  background-color: blueviolet;
+  border: 1px solid darkcyan;
+  cursor: pointer;
 }
 
 .header {
@@ -67,14 +73,6 @@ footer {
   text-align: center;
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: black;
-}
-
-button {
-  height: 35px;
-  color: white;
-  background-color: blueviolet;
-  border: 1px solid darkcyan;
-  cursor: pointer;
 }
 
 footer ul {
