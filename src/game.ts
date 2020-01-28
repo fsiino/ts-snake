@@ -51,7 +51,8 @@ export class Game {
 
     this.isPaused = false;
 
-    // this.gameMusic.play();
+    this.gameMusic.play();
+    this.gameMusic.muted = true;
   }
 
   public clearCanvas(): void  {
