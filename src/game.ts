@@ -15,9 +15,11 @@ export class Game {
   public canvasHeight: number;
   public currentScore: number = 0;
   public highScore: number;
-  public appleBite: any;
+  public foodBite: any;
   public gameMusic: any;
-  public gameMuted: boolean;
+
+  public biteMuted: boolean;
+  public musicMuted: boolean;
   private isPaused: boolean;
   // private loopCount = 0;
 
@@ -40,9 +42,13 @@ export class Game {
     this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1])
     this.foodCoords.push(...[this.randomFood(0, this.canvasWidth - 10), this.randomFood(0, this.canvasHeight - 10)])
     this.currentScore = 0;
-    this.appleBite = new Audio('./sound/appleBite.mp3');
+
+    this.foodBite = new Audio('./sound/foodBite.mp3');
+    this.biteMuted = false;
+
     this.gameMusic = new Audio('./sound/Hero_Dance_Party.mp3');
-    this.gameMuted = true;
+    this.musicMuted = true;
+
     this.isPaused = false;
 
     // this.gameMusic.play();
@@ -68,12 +74,13 @@ export class Game {
     return this.snake.body[0].x === this.food.foodLoc[0] && this.snake.body[0].y === this.food.foodLoc[1];
   }
 
-  private hitWall() {
+  private hitWall(): boolean {
     // Check if snake hits canvas boundaries:
     const head = this.snake.body[0];
     if (head.x < 0 || head.x > this.canvasWidth - 10 || head.y < 0 || head.y > this.canvasHeight - 10) {
       return true;
     }
+    return false;
   }
 
   private gameOver(): void {
@@ -142,17 +149,35 @@ export class Game {
       }
     })
     
-    document.querySelector('.button-wrapper #mute-btn').addEventListener('click', e => {
-      if (this.gameMuted) {
-        this.gameMuted = false;
-        document.getElementById('mute-btn').innerHTML = 'Mute SFX & Music'
-        this.appleBite.muted = false;
-        this.gameMusic.muted = false;
+    document.querySelector('.button-wrapper #bite-mute-btn').addEventListener('click', e => {
+      if (this.biteMuted) {
+        setTimeout(() => {
+          this.biteMuted = false;
+          document.getElementById('bite-mute-btn').innerHTML = 'Mute SFX'
+          this.foodBite.muted = false;
+        }, Settings.game.GAMESPEED)
       } else {
-        this.gameMuted = true;
-        document.getElementById('mute-btn').innerHTML = 'Unmute SFX & Music'
-        this.appleBite.muted = true;
-        this.gameMusic.muted = true;
+        setTimeout(() => {
+          this.biteMuted = true;
+          document.getElementById('bite-mute-btn').innerHTML = 'Unmute SFX'
+          this.foodBite.muted = true;
+        }, Settings.game.GAMESPEED)
+      }
+    })
+    
+    document.querySelector('.button-wrapper #music-mute-btn').addEventListener('click', e => {
+      if (this.musicMuted) {
+        setTimeout(() => {
+          this.musicMuted = false;
+          document.getElementById('music-mute-btn').innerHTML = 'Mute Music'
+          this.gameMusic.muted = false;
+        }, Settings.game.GAMESPEED)
+      } else {
+        setTimeout(() => {
+          this.musicMuted = true;
+          document.getElementById('music-mute-btn').innerHTML = 'Unmute Music'
+          this.gameMusic.muted = true;
+        }, Settings.game.GAMESPEED)
       }
     })
 
@@ -162,7 +187,7 @@ export class Game {
       this.clearCanvas(); 
 
       if (this.ateFood()) {
-        this.appleBite.play();
+        this.foodBite.play();
         this.food.createFood(this.snake);
         this.currentScore++;
       }
