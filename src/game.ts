@@ -88,6 +88,15 @@ export class Game {
     return false;
   }
 
+  private hitSelf(): boolean {
+    for (let i = 4; i < this.snake.body.length; i++) {
+      if (this.snake.body[i].x === this.snake.body[0].x && this.snake.body[i].y === this.snake.body[0].y) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private endGame(): void {
     this.endLoop();
     this.gameOver = true;
@@ -187,7 +196,7 @@ export class Game {
     // console.log(++this.loopCount);
     
     // TODO: Fix game acceleration on 3rd restart after gameOver
-    if (this.hitWall()) {
+    if (this.hitWall() || this.hitSelf()) {
       this.endGame(); 
       return;
     };
