@@ -21,6 +21,7 @@ export class Game {
 
   public biteMuted: boolean;
   public musicMuted: boolean;
+  public musicMutedBeforePause: boolean;
 
   private isPaused: boolean;
   private gameOver: boolean;
@@ -36,6 +37,7 @@ export class Game {
     this.grid = new Grid(canvas);
     this.foodCoords = [];
 
+    // Does not spawn food beneath snake at game start.
     this.snake.body.forEach((part: any) => {
       if (part.x !== this.food.foodLoc[0] && part.y !== this.food.foodLoc[1]) {
         this.food.createFood(this.snake);
@@ -51,6 +53,7 @@ export class Game {
 
     this.gameMusic = new Audio('./sound/Hero_Dance_Party.mp3');
     this.musicMuted = true;
+    this.musicMutedBeforePause = false;
 
     this.isPaused = false;
     this.gameOver = false;
@@ -145,15 +148,22 @@ export class Game {
 
   // TODO: Preserve !musicMuted when pausing + unpausing
   private pauseGame(action: String): void {
+    if (this.musicMuted) {
+      this.musicMutedBeforePause = true;
+    } else {
+      this.musicMutedBeforePause = false;
+    }
+
     if (action === 'pause') {
       this.isPaused = true;
-      if (!this.musicMuted) {
-        this.toggleMusic();
-      }
+      this.gameMusic.muted = true;
     } else if (action === 'unpause') {
-      this.isPaused = false;
-      if (!this.musicMuted) {
-        this.toggleMusic();
+      if (this.musicMutedBeforePause) {
+        this.isPaused = false;
+        this.gameMusic.muted = true;
+      } else {
+        this.isPaused = false;
+        this.gameMusic.muted = false;
       }
     }
   }
