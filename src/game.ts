@@ -25,7 +25,6 @@ export class Game {
 
   private isPaused: boolean;
   private gameOver: boolean;
-  // private loopCount = 0;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -101,19 +100,13 @@ export class Game {
   }
 
   private endGame(): void {
-    this.endLoop();
+    // this.endLoop();
     this.gameOver = true;
-
-    // let nodes = document.querySelectorAll<HTMLElement>('.button-wrapper button');
-    // for (let i = 0; i < nodes.length; i++) {
-    //   nodes[i].style.cursor = 'not-allowed';
-    //   nodes[i].setAttribute('id', 'disabled');
-    // }
 
     if (!this.musicMuted) {
       this.toggleMusic();
     }
-    
+
     this.highScore = this.currentScore;
 
     document.querySelector('#high-score span').innerHTML = `${this.currentScore}`
@@ -201,13 +194,8 @@ export class Game {
   }
 
   private loop(): void  {
-    // this.requestedFrameId = requestAnimationFrame(() => this.loop());
-    // console.log("looping");
-    // console.log(++this.loopCount);
-    
-    // TODO: Fix game acceleration on 3rd restart after gameOver
     if (this.hitWall() || this.hitSelf()) {
-      this.endGame(); 
+      this.endGame();
       return;
     };
 
@@ -224,11 +212,11 @@ export class Game {
         }, Settings.game.GAMESPEED);
       }
     })
-    
+
     document.querySelector('.button-wrapper #bite-mute-btn').addEventListener('click', () => {
       this.toggleSFX();
     })
-    
+
     document.querySelector('.button-wrapper #music-mute-btn').addEventListener('click', () => {
       this.toggleMusic();
     })
@@ -236,32 +224,32 @@ export class Game {
     document.querySelector('#score span').innerHTML = `${this.currentScore}`;
 
     setTimeout((): void => {
-      this.clearCanvas(); 
-
-      if (this.ateFood()) {
-        this.foodBite.play();
-        this.food.createFood(this.snake);
-        this.currentScore++;
-      }
-      
-      this.grid.drawGrid();
-      this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
-
       if (!this.isPaused) {
-        this.snake.moveSnake(this.food.foodLoc); 
-      }
-      
-      this.snake.drawSnake();
+        this.clearCanvas();
 
-      this.loop();
+        if (this.ateFood()) {
+          this.foodBite.play();
+          this.food.createFood(this.snake);
+          this.currentScore++;
+        }
+
+        this.grid.drawGrid();
+        this.food.drawFood(this.food.foodLoc[0], this.food.foodLoc[1]);
+
+        this.snake.moveSnake(this.food.foodLoc);
+        this.snake.drawSnake();
+        this.loop();
+      }
+
     }, Settings.game.GAMESPEED);
   }
 
   public startLoop(): void  {
+    cancelAnimationFrame(this.requestedFrameId);
     this.requestedFrameId = requestAnimationFrame(() => this.loop());
   }
 
-  public endLoop(): void  {
-    cancelAnimationFrame(this.requestedFrameId);
-  }
+  // public endLoop(): void  {
+  //   cancelAnimationFrame(this.requestedFrameId);
+  // }
 }
