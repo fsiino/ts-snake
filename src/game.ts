@@ -128,6 +128,18 @@ export class Game {
     })
   }
 
+  public showStartScreen(): void {
+    this.ctx.fillStyle = 'white';
+    this.ctx.strokeStyle = 'black';
+    this.ctx.textAlign = 'center';
+    this.ctx.font = '12pt Arial';
+    this.ctx.fillText('Press Enter Start', this.canvasWidth / 2, (this.canvasHeight / 2) + 2)
+
+    document.addEventListener('keydown', e => {
+      if (e.keyCode === 13) this.startLoop();
+    })
+  }
+
   private restart(): void {
     this.gameOver = false;
     this.currentScore = 0;
