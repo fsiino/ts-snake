@@ -206,7 +206,7 @@ export class Game {
   }
 
   private loop(): void  {
-    if (this.hitWall() || this.hitSelf()) {
+    if (this.hitWall() || this.hitSelf() || this.gameOver) {
       this.endGame();
       return;
     };
@@ -250,8 +250,9 @@ export class Game {
 
         this.snake.moveSnake(this.food.foodLoc);
         this.snake.drawSnake();
-        this.loop();
       }
+
+      this.loop();
 
     }, Settings.game.GAMESPEED);
   }
